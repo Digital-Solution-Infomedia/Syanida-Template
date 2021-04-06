@@ -7,9 +7,10 @@ class resources extends CI_Controller {
 
 	public function index()
 	
-	{
-		
-		$this->template->load('Campaign_management/resource_page');
+	{	
+		$this->load->view('temp_1/header');
+		$this->load->view('Campaign_management/resource_page');
+		$this->load->view('temp_1/footer');
 	}
 	
 

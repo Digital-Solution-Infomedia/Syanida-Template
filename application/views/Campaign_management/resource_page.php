@@ -1,15 +1,15 @@
   <!-- START: Template CSS-->
-  <link rel="stylesheet" href="<?php echo base_url()?>assets/new_theme/dist/vendors/bootstrap/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="<?php echo base_url()?>assets/new_theme/dist/vendors/jquery-ui/jquery-ui.min.css" />
-  <link rel="stylesheet" href="<?php echo base_url()?>assets/new_theme/dist/vendors/jquery-ui/jquery-ui.theme.min.css" />
-  <link rel="stylesheet" href="<?php echo base_url()?>assets/new_theme/dist/vendors/simple-line-icons/css/simple-line-icons.css" />
-  <link rel="stylesheet" href="<?php echo base_url()?>assets/new_theme/dist/vendors/flags-icon/css/flag-icon.min.css" />
+  <link rel="stylesheet" href="<?php echo base_url()?>assets/temp_1/vendors/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="<?php echo base_url()?>assets/temp_1/vendors/jquery-ui/jquery-ui.min.css" />
+  <link rel="stylesheet" href="<?php echo base_url()?>assets/temp_1/vendors/jquery-ui/jquery-ui.theme.min.css" />
+  <link rel="stylesheet" href="<?php echo base_url()?>assets/temp_1/vendors/simple-line-icons/css/simple-line-icons.css" />
+  <link rel="stylesheet" href="<?php echo base_url()?>assets/temp_1/vendors/flags-icon/css/flag-icon.min.css" />
   <!-- END Template CSS-->
 
   <!-- START: Custom CSS-->
-  <link rel="stylesheet" href="<?php echo base_url()?>assets/new_theme/dist/css/main2.css" />
-  <link rel="stylesheet" href="<?php echo base_url()?>assets/new_theme/dist/vendors/bootstrap4-toggle/css/bootstrap4-toggle.min.css" />
-  <link rel="stylesheet" href="<?php echo base_url()?>assets/new_theme/dist/vendors/quill/quill.snow.css" />
+  <link rel="stylesheet" href="<?php echo base_url()?>assets/temp_1/css/main.css" />
+  <link rel="stylesheet" href="<?php echo base_url()?>assets/temp_1/vendors/bootstrap4-toggle/css/bootstrap4-toggle.min.css" />
+  <link rel="stylesheet" href="<?php echo base_url()?>assets/temp_1/vendors/quill/quill.snow.css" />
    <!-- START: Pre Loader-->
     
     <!-- END: Pre Loader-->
@@ -454,23 +454,23 @@
         <!-- END: Card DATA-->
       </div>
  <!-- START: Template JS-->
- <script src="<?php echo base_url()?>assets/new_theme/dist/vendors/jquery/jquery-3.3.1.min.js"></script>
-  <script src="<?php echo base_url()?>assets/new_theme/dist/vendors/jquery-ui/jquery-ui.min.js"></script>
-  <script src="<?php echo base_url()?>assets/new_theme/dist/vendors/moment/moment.js"></script>
-  <script src="<?php echo base_url()?>assets/new_theme/dist/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="<?php echo base_url()?>assets/new_theme/dist/vendors/slimscroll/jquery.slimscroll.min.js"></script>
+ <script src="<?php echo base_url()?>assets/temp_1/vendors/jquery/jquery-3.3.1.min.js"></script>
+  <script src="<?php echo base_url()?>assets/temp_1/vendors/jquery-ui/jquery-ui.min.js"></script>
+  <script src="<?php echo base_url()?>assets/temp_1/vendors/moment/moment.js"></script>
+  <script src="<?php echo base_url()?>assets/temp_1/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="<?php echo base_url()?>assets/temp_1/vendors/slimscroll/jquery.slimscroll.min.js"></script>
   <!-- END: Template JS-->
 
   <!-- START: APP JS-->
-  <script src="<?php echo base_url()?>assets/new_theme/dist/js/app.js"></script>
+  <script src="<?php echo base_url()?>assets/temp_1/js/app.js"></script>
   <!-- END: APP JS-->
 
   <!-- START: Page JS-->
 
-  <script src="<?php echo base_url()?>assets/new_theme/dist/vendors/bootstrap4-toggle/js/bootstrap4-toggle.min.js"></script>
-  <script src="<?php echo base_url()?>assets/new_theme/dist/js/app.filemanager.js"></script>
-  <script src="<?php echo base_url()?>assets/new_theme/dist/vendors/quill/quill.min.js"></script>
-  <script src="<?php echo base_url()?>assets/new_theme/dist/js/mail.script.js"></script>
+  <script src="<?php echo base_url()?>assets/temp_1/vendors/bootstrap4-toggle/js/bootstrap4-toggle.min.js"></script>
+  <script src="<?php echo base_url()?>assets/temp_1/js/app.filemanager.js"></script>
+  <script src="<?php echo base_url()?>assets/temp_1/vendors/quill/quill.min.js"></script>
+  <script src="<?php echo base_url()?>assets/temp_1/js/mail.script.js"></script>
     <!-- END: Content-->
 
     <!-- START: Footer-->
