@@ -9,7 +9,9 @@ class rules extends CI_Controller {
 	
 	{
 		
+		// $this->load->view('temp_1/header');
 		$this->template->load('Campaign_management/rule_page');
+		// $this->load->view('temp_1/footer');
 	}
 	
 

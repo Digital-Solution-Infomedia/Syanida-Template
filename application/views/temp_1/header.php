@@ -24,7 +24,10 @@
   </head>
  
   <body>
- 
+    <?php
+
+        $this->db->query("SELECT * FROM sys_menu");
+    ?>
     <header>
       <!-- Fixed navbar -->
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -35,8 +38,9 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="<?php echo base_url(); ?>home">Home<span class="sr-only">(current)</span></a>
+              <a class="nav-link" href="<?php echo base_url(); ?>home">Home<span class="sr-only"></span></a>
             </li>
+
             <li class="nav-item">
               <a class="nav-link" href="<?php echo base_url(); ?>index.php/page/profil">Profil</a>
             </li>
