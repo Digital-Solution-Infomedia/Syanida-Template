@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="<?php echo base_url()?>assets/new_theme/dist/vendors/bootstrap/css/bootstrap.min.css" />
+  <!-- START: Template CSS-->
   <link rel="stylesheet" href="<?php echo base_url()?>assets/new_theme/dist/vendors/jquery-ui/jquery-ui.min.css" />
   <link rel="stylesheet" href="<?php echo base_url()?>assets/new_theme/dist/vendors/jquery-ui/jquery-ui.theme.min.css" />
   <link rel="stylesheet" href="<?php echo base_url()?>assets/new_theme/dist/vendors/simple-line-icons/css/simple-line-icons.css" />
@@ -6,7 +6,7 @@
   <!-- END Template CSS-->
 
   <!-- START: Custom CSS-->
-  <link rel="stylesheet" href="<?php echo base_url()?>assets/new_theme/dist/css/main.css" />
+  <link rel="stylesheet" href="<?php echo base_url()?>assets/new_theme/dist/css/main2.css" />
   <link rel="stylesheet" href="<?php echo base_url()?>assets/new_theme/dist/vendors/bootstrap4-toggle/css/bootstrap4-toggle.min.css" />
   <link rel="stylesheet" href="<?php echo base_url()?>assets/new_theme/dist/vendors/quill/quill.snow.css" />
    <!-- START: Pre Loader-->
@@ -174,9 +174,7 @@
       
                                 <div class="form-group">
                                   <!-- disini load snow container quill textarea -->
-                                  <label for="inputState"
-                                    >Customer Segment Detail</label
-                                  >
+                                  <label for="inputState">Customer Segment Detail</label>
                                   <div id="snow-container" class="height-175"></div>
                                 </div>
       
@@ -455,7 +453,6 @@
  <script src="<?php echo base_url()?>assets/new_theme/dist/vendors/jquery/jquery-3.3.1.min.js"></script>
   <script src="<?php echo base_url()?>assets/new_theme/dist/vendors/jquery-ui/jquery-ui.min.js"></script>
   <script src="<?php echo base_url()?>assets/new_theme/dist/vendors/moment/moment.js"></script>
-  <script src="<?php echo base_url()?>assets/new_theme/dist/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="<?php echo base_url()?>assets/new_theme/dist/vendors/slimscroll/jquery.slimscroll.min.js"></script>
   <!-- END: Template JS-->
 
