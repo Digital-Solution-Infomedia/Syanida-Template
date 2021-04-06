@@ -1,4 +1,5 @@
   <!-- START: Template CSS-->
+  <link rel="stylesheet" href="<?php echo base_url()?>assets/new_theme/dist/vendors/bootstrap/css/bootstrap.min.css" />
   <link rel="stylesheet" href="<?php echo base_url()?>assets/new_theme/dist/vendors/jquery-ui/jquery-ui.min.css" />
   <link rel="stylesheet" href="<?php echo base_url()?>assets/new_theme/dist/vendors/jquery-ui/jquery-ui.theme.min.css" />
   <link rel="stylesheet" href="<?php echo base_url()?>assets/new_theme/dist/vendors/simple-line-icons/css/simple-line-icons.css" />
@@ -257,29 +258,32 @@
                 </div>
               </div>
 
-              <ul class="nav flex-column document-menu">
+              <ul class="nav flex-column document-menu mail-menu">
                 <li class="nav-item">
                   <a
                     class="nav-link active"
                     href="#"
                     data-documenttype="document"
                   >
-                    All
+                    All<span class="ml-auto badge badge-pill badge-success bg-success">8</span>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="#" data-documenttype="product">
                     Products
+                    <span class="ml-auto badge badge-pill badge-success bg-success">8</span>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="#" data-documenttype="customer">
                     Customers
+                    <span class="ml-auto badge badge-pill badge-success bg-success">8</span>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="#" data-documenttype="wording">
                     Wording
+                    <span class="ml-auto badge badge-pill badge-success bg-success">8</span>
                   </a>
                 </li>
               </ul>
@@ -453,6 +457,7 @@
  <script src="<?php echo base_url()?>assets/new_theme/dist/vendors/jquery/jquery-3.3.1.min.js"></script>
   <script src="<?php echo base_url()?>assets/new_theme/dist/vendors/jquery-ui/jquery-ui.min.js"></script>
   <script src="<?php echo base_url()?>assets/new_theme/dist/vendors/moment/moment.js"></script>
+  <script src="<?php echo base_url()?>assets/new_theme/dist/vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="<?php echo base_url()?>assets/new_theme/dist/vendors/slimscroll/jquery.slimscroll.min.js"></script>
   <!-- END: Template JS-->
 

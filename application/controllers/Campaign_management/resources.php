@@ -9,7 +9,7 @@ class resources extends CI_Controller {
 	
 	{
 		
-		$this->template->load('Resources/resource_page');
+		$this->template->load('Campaign_management/resource_page');
 	}
 	
 

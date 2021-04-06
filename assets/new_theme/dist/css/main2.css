@@ -220,6 +220,67 @@
 .documents.grid .document p {
     margin-bottom: 0px;
 }
+/********* Flip Menu ***********/
+@media (max-width: 991px) {
+    .flip-menu {
+        -webkit-border-radius: 5px;
+        -webkit-border-top-right-radius: 5px;
+        -webkit-border-bottom-right-radius: 5px;
+        -moz-border-radius: 5px;
+        -moz-border-radius-topright: 5px;
+        -moz-border-radius-bottomright: 5px;
+        border-radius: 5px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        position: fixed;
+        top: 49px;
+        bottom: 0;
+        -webkit-transform: translateX(-780px);
+        transform: translateX(-780px);
+        transition: all 0.5s;
+    }
+
+    .flip-menu .mail-menu-section {
+        z-index: 100;
+    }
+
+    .flip-menu.active {
+        -webkit-transform: translateX(-15px);
+        transform: translateX(-15px);
+        margin-left: 0px;
+        z-index: 5;
+    }
+
+    .flip-menu.active:before {
+        position: fixed;
+        background: rgba(0, 0, 0, 0.6);
+        width: 100%;
+        height: 100vh;
+    }
+
+    .flip-menu.active .mail-menu-section {
+        border-radius: 0px;
+    }
+
+    .flip-menu .flip-menu-close {
+        position: absolute;
+        right: -7px;
+        left: auto;
+        top: 0px;
+        font-size: 20px;
+        z-index: 100000;
+    }
+}
+
+.flip-menu-toggle {
+    line-height: 31px;
+    font-size: 20px;
+    border-right: 1px solid var(--bordercolor);
+    padding: 0px 10px;
+    margin-top: 3px;
+}
+
+
 /* Bootstrap Nav Tabs */
 .nav-tabs {
     border: none;
@@ -464,3 +525,90 @@
 .input-success .form-control:focus + .form-control-placeholder {
     color: var(--success);
 }
+/*  Form Wizard Page Css */
+.wizard {
+    position: relative;
+    z-index: 1;
+}
+
+.wizard .round-tab i {
+    width: 50px;
+    height: 50px;
+    background-color: var(--primarycolor);
+    border: 2px solid var(--primarycolor);
+    font-size: 1.25rem;
+    line-height: 45px;
+    text-align: center !important;
+    top: 15px;
+    z-index: 99;
+    display: inline-block;
+}
+
+.wizard .nav-link:hover {
+    color: var(--primarycolor) !important;
+}
+
+.wizard .nav-link.active {
+    color: var(--primarycolor);
+}
+
+.wizard .nav-link.active i {
+    background-color: var(--mainbackground);
+    border-color: var(--primarycolor);
+    color: var(--primarycolor) !important;
+}
+
+.wizard .connecting-line {
+    height: 2px;
+    background: var(--primarycolor);
+    position: absolute;
+    width: 99%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 40px;
+    z-index: 1;
+}
+
+.wizard.dark .round-tab i {
+    color: var(--primarycolor);
+    background-color: #fff;
+    border: 2px solid var(--bordercolor);
+}
+
+.wizard.dark .connecting-line {
+    background-color: #fff;
+}
+
+.wizard.dark .form-control {
+    color: #fff !important;
+    border-color: #fff;
+}
+
+.wizard.dark .nav-link {
+    color: #fff;
+}
+
+.wizard.dark .nav-link .small {
+    color: #fff;
+}
+
+.wizard.dark .nav-link:hover {
+    color: #fff !important;
+}
+
+.wizard.dark .nav-link.active i {
+    background-color: var(--primarycolor);
+    border-color: #fff;
+    color: #fff !important;
+}
+
+.wizard-dark .nav-tabs .nav-link.active {
+    border-bottom: 1px solid #fff;
+}
+
+.wizard-dark .form-control {
+    color: #fff !important;
+    border-color: #fff;
+}
+
