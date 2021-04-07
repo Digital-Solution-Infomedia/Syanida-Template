@@ -18,6 +18,29 @@
    <!-- START: Pre Loader-->
     <!-- START: Main Content-->
       <div class="container-fluid site">
+
+        
+          <!-- Modal -->
+          <div class="modal fade" id="preview-attach" tabindex="-1" role="dialog" aria-labelledby="preview-attachTitle" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="preview-attachgTitle">Preview</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="preview-image-md">
+                          <img src="<?= base_url('images/sample/dropzone_script.png')?>" alt="Preview Image" style="width:100%;max-height:400px;height:auto;">
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
         <!-- START: Breadcrumbs-->
         <div class="row">
           <div class="col-12 align-self-center">
@@ -252,8 +275,8 @@
                                   >
                                 </td>
                                 <td>
-                                  <button class="btn btn-primary btn-sm">
-                                    Preview
+                                  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#preview-attach">
+                                      Preview
                                   </button>
                                 </td>
                                 <td>
@@ -474,4 +497,4 @@
   <script src="<?php echo base_url()?>assets/temp_1/vendors/bootstrap4-toggle/js/bootstrap4-toggle.min.js"></script>
   <script src="<?php echo base_url()?>assets/temp_1/vendors/select2/js/select2.full.min.js"></script>
   <script src="<?php echo base_url()?>assets/temp_1/js/select2.script.js"></script>
-    <!-- END: Content-->
+    <!-- END: Content--> 
