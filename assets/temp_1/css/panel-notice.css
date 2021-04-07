@@ -1,0 +1,192 @@
+:root {
+    --sidebarbg: #fff;
+    --sidebarcolor: #6c757d;
+    --sidebarbordercolor: rgba(72, 94, 144, 0.16);
+    --sidebaractivecolor: #4c75f2;
+    --sidebarheadingcolor: #6c757d;
+    --sidebarheadingbackground: #fff;
+    --logobg: #fff;
+    --logocolor: #4c75f2;
+    --headerbackground: #fff;
+    --headercolor: #292b3a;
+    --searchcolor: #292b3a;
+    --primarycolor: #1e3d73;
+    --bodycolor: #292b3a;
+    --bodybackground: #f6f6f7;
+    --bordercolor: rgba(72, 94, 144, 0.16);
+    --mainbackground: #fff;
+    --secondary: #6c757d;
+    --success: #1ee0ac;
+    --info: #17a2b8;
+    --warning: #ffc107;
+    --danger: #f64e60;
+    --dark: #343a40;
+    --sidebarwidth: 140px;
+}
+/************* Badge **************/
+.badge {
+    line-height: 1.4;
+    padding: 3px 6px;
+    font-size: 11px;
+    font-weight: 400;
+    transition: all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+}
+
+.badge-primary {
+    background: var(--primarycolor);
+}
+
+.badge-secondary {
+    background-color: var(--secondary);
+}
+
+.badge-success {
+    background-color: var(--success);
+}
+
+.badge-info {
+    background-color: var(--info);
+}
+
+.badge-warning {
+    background-color: var(--warning);
+}
+
+.badge-dark {
+    background-color: var(--dark);
+}
+
+.badge-danger {
+    background-color: var(--danger);
+}
+
+.outline-badge-primary {
+    border: 1px solid var(--primarycolor);
+    color: var(--primarycolor);
+    position: relative;
+    overflow: hidden;
+}
+
+.outline-badge-primary > * {
+    z-index: 1;
+}
+
+.outline-badge-primary:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--primarycolor);
+    opacity: 0.2;
+    left: 0px;
+    top: 0px;
+    z-index: 0;
+}
+
+.outline-badge-secondary {
+    border: 1px solid var(--secondary);
+    color: var(--secondary);
+    position: relative;
+    overflow: hidden;
+}
+
+.outline-badge-secondary:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--secondary);
+    opacity: 0.2;
+    left: 0px;
+    top: 0px;
+}
+.outline-badge-success {
+    border: 1px solid var(--success);
+    color: var(--success);
+    position: relative;
+    overflow: hidden;
+}
+
+.outline-badge-success:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--success);
+    opacity: 0.2;
+    left: 0px;
+    top: 0px;
+}
+
+.outline-badge-info {
+    border: 1px solid var(--info);
+    color: var(--info);
+    position: relative;
+    overflow: hidden;
+}
+
+.outline-badge-info:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--info);
+    opacity: 0.2;
+    left: 0px;
+    top: 0px;
+}
+
+.outline-badge-warning {
+    border: 1px solid var(--warning);
+    color: var(--warning);
+    position: relative;
+    overflow: hidden;
+}
+
+.outline-badge-warning:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--warning);
+    opacity: 0.2;
+    left: 0px;
+    top: 0px;
+}
+
+.outline-badge-danger {
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    position: relative;
+    overflow: hidden;
+}
+
+.outline-badge-danger:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--danger);
+    opacity: 0.2;
+    left: 0px;
+    top: 0px;
+}
+
+.outline-badge-dark {
+    border: 1px solid var(--dark);
+    color: var(--dark);
+    position: relative;
+    overflow: hidden;
+}
+
+.outline-badge-dark:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--dark);
+    opacity: 0.2;
+    left: 0px;
+    top: 0px;
+}
