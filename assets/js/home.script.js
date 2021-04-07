@@ -3,7 +3,6 @@
     var primarycolor = getComputedStyle(document.body).getPropertyValue('--primarycolor');
     var bordercolor = getComputedStyle(document.body).getPropertyValue('--bordercolor');
     var bodycolor = getComputedStyle(document.body).getPropertyValue('--bodycolor');
-
     var theme = 'light';
     if ($('body').hasClass('dark')) {
         theme = 'dark';
@@ -1713,9 +1712,6 @@
     }
     /////////////////////////////////// Bar Chart /////////////////////
     if ($("#apex_bar_chart").length > 0) {
-            
-    var warna = ['#1e3d73', '#d7844f', '#d74f5e', '#d7c84f', '#a2d74f'];
-    
         options = {
             theme: {
                 mode: theme
@@ -1729,29 +1725,25 @@
                 }
             },
             chart: {
-                height: 210,
+                height: 318,
                 type: 'bar',
             },
             plotOptions: {
                 bar: {
                     horizontal: true,
                     columnWidth: '10',
-                    distributed: true
                 }
             },
             dataLabels: {
                 enabled: false
             },
-            colors: warna,
+            colors: ['#1e3d73'],
             series: [{
-                data: [400, 430, 448, 470, 470] 
-            }
-            ],
+                data: [400, 430, 448, 470, 540, 580]
+            }],
             xaxis: {
-                categories: ['Renews Speed', 'Kuota', 'Upgrade Speed', 'Wifi id Seamless', 'IndiKids']
-            },
-            legend: {
-                show:false
+                categories: ['South Korea', 'Canada', 'United Kingdom', 'Netherlands', 'Italy', 'France']
+
             }
         }
 
