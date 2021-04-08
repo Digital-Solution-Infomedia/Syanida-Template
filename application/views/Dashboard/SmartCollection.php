@@ -265,7 +265,7 @@
                             <table class="table font-w-600 mb-0">
                                 <thead>
                                     <tr>
-                                        <th>Channel</th>
+                                        <th>Regional</th>
                                         <th>Progress</th>
                                         <th>Success</th>
                                         <th>UnSuccess</th>
@@ -614,7 +614,7 @@
         }
 
         <?php  
-        $dataset = array_column($summary_order, 'channel_count');
+        $dataset = array_column($summary_order, 'status_count');
         $datalabel = array_column($summary_order, 'label');
         ?>
         var config = {
@@ -653,7 +653,7 @@
         };
 
         <?php  
-        $dataset = array_column($summary_unique_customer, 'channel_count');
+        $dataset = array_column($summary_unique_customer, 'count_status');
         $datalabel = array_column($summary_unique_customer, 'label');
         ?>
         var config2 = {

@@ -14,21 +14,21 @@ class SmartCollection extends CI_Controller {
 
 	public function index()
 	{
+		$curdate = date('Y-m-d', strtotime("2021-03-01"));
+		$getDateData = $this->SmartCollectionModel->get_date_data($curdate);
 		$data = array(
 			'title_page_big'		=> 'Dashboard Monitoring Smart Collection',
 			'title'					=> $this->title,
-			'total_order_by_channel' => $this->SmartCollectionModel->get_total_order_by_channel_and_status_today(),
-			'total_order_by_regional' => $this->SmartCollectionModel->get_total_order_by_regional_and_status_today(),
-			'summary_order' => $this->SmartCollectionModel->get_summary_order_today(),
-			'summary_unique_customer' => $this->SmartCollectionModel->get_summary_unique_customer_today(),
-			'summary_success_by_channel' => $this->SmartCollectionModel->get_summary_success_by_channel_today(),
-			'summary_order_by_unique_customer' => $this->SmartCollectionModel->get_summary_order_by_unique_customer_today(),
+			'total_order_by_channel' => $this->SmartCollectionModel->get_total_order_by_channel_and_status_today($getDateData[0]['date_value']),
+			'total_order_by_regional' => $this->SmartCollectionModel->get_total_order_by_regional_and_status_today($getDateData[0]['date_value']),
+			'summary_order' => $this->SmartCollectionModel->get_summary_order_today($getDateData[0]['date_value']),
+			'summary_unique_customer' => $this->SmartCollectionModel->get_summary_unique_customer_today($getDateData[0]['date_value']),
+			'summary_success_by_channel' => $this->SmartCollectionModel->get_summary_success_by_channel_today($getDateData[0]['date_value']),
+			'summary_order_by_unique_customer' => $this->SmartCollectionModel->get_summary_order_by_unique_customer_today($getDateData[0]['date_value']),
 		);
 		$data['controller'] = $this;
-		$curdate = date('Y-m-d');
-		$getDateData = $this->SmartCollectionModel->get_date_data($curdate);
 		$data['pencairan_h1'] = $this->SmartCollectionModel->get_total_pencairan_filter_by_date( date_format(date_sub(date_create( $getDateData[0]['date_value'] ), date_interval_create_from_date_string('1 days')),"Y-m-d") , $getDateData[0]['date_value']);
-		$data['pencairan_seminggu'] = $this->SmartCollectionModel->get_total_pencairan_filter_by_date( date('Y-m-d', mktime(0, 0, 0, $getDateData[0]['month_number'], $getDateData[0]['is_first_day_in_week'], $getDateData[0]['year_4'])) , date('Y-m-d', mktime(0, 0, 0, $getDateData[0]['month_number'], $getDateData[0]['is_last_dat_in_week'], $getDateData[0]['year_4'])) );
+		$data['pencairan_seminggu'] = $this->SmartCollectionModel->get_total_pencairan_filter_by_date( date_format(date_sub(date_create( $getDateData[0]['date_value'] ), date_interval_create_from_date_string('7 days')),"Y-m-d") , $getDateData[0]['date_value'] );
 		$data['pencairan_sebulan'] = $this->SmartCollectionModel->get_total_pencairan_filter_by_date( date('Y-m-01', strtotime($getDateData[0]['date_value'])), date('Y-m-t', strtotime($getDateData[0]['date_value'])) );
 
 		$this->load->view('Dashboard/SmartCollection', $data);
@@ -56,13 +56,13 @@ class SmartCollection extends CI_Controller {
 		// load query dan tampung ke data
 		$getDateData = $this->SmartCollectionModel->get_date_data($sel_date);
 		$l_date = date('Y-m-d', strtotime($getDateData[0]['date_value']));
-		switch ($template) {
+		switch ($sel_template) {
 			case 'monthly':
 				$f_date = date('Y-m-01', strtotime($getDateData[0]['date_value']));
 				// $l_date = date('Y-m-t', strtotime($getDateData[0]['date_value']));
 				break;
 			case 'weekly':
-				$f_date = date('Y-m-d', mktime(0, 0, 0, $getDateData[0]['month_number'], $getDateData[0]['is_first_day_in_week'], $getDateData[0]['year_4']));
+				$f_date = date_format(date_sub(date_create($l_date),date_interval_create_from_date_string("7 days")), 'Y-m-d');
 				// $l_date = date('Y-m-d', strtotime($getDateData[0]['date_value']));
 				break;
 			case 'daily':
@@ -80,7 +80,7 @@ class SmartCollection extends CI_Controller {
 		$data['summary_payment_by_regional'] = $this->SmartCollectionModel->get_summary_payment_by_regional($f_date, $l_date);
 		// Perilakuan Khusus untuk Summary Order by Date Chart
 		if ($sel_template == 'daily') {
-			$f_date = date_format(date_sub(date_create($l_date),date_interval_create_from_date_string("30 days")), 'Y-m-d');
+			$f_date = date_format(date_sub(date_create($l_date),date_interval_create_from_date_string("1 months")), 'Y-m-d');
 		}
 		$data['summary_order_by_date_chart'] = $this->SmartCollectionModel->get_summary_order_by_date_chart($f_date, $l_date);
 

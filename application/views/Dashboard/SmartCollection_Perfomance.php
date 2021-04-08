@@ -99,22 +99,23 @@
                                 <!-- Start Summary Order -->
                                 <ul class="list-group list-unstyled">
                                     <?php 
-                                    $color_class = ['success', 'warning', 'info', 'primary', 'default'];
+                                    // $color_class = ['success', 'warning', 'info', 'primary', 'default'];
                                     if (count($summary_order_by_date) > 0) {
                                         $total_all_status = array_sum(array_map(function($item) { 
                                             return $item['status_count']; 
                                         }, $summary_order_by_date));
                                         for ($i=0; $i < count($summary_order_by_date); $i++) { 
+                                            $color = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
                                             echo '<li class="p-2 border-bottom">
                                             <div class="w-100">
                                             <a href="#">Total '.$summary_order_by_date[$i]['label'].'</a>
-                                            <div class="barfiller h-7 rounded" data-color="'.$color_class[$i].'">
+                                            <div class="barfiller h-7 rounded" data-color="'.$color.'">
                                             <div class="tipWrap">
-                                            <span class="tip rounded '.$color_class[$i].'">
+                                            <span class="tip rounded " style="background:'.$color.'">
                                             <span class="tip-arrow"></span>
                                             </span>
                                             </div>
-                                            <span class="fill" data-percentage="'.round( ($summary_order_by_date[$i]['label']/$total_all_status)*100 ).'"></span>
+                                            <span class="fill" data-percentage="'.round( ($summary_order_by_date[$i]['status_count']/$total_all_status)*100 ).'"></span>
                                             </div>
                                             </div>
                                             </li>';
@@ -185,7 +186,10 @@
                                 <!-- Start Unique Customer -->
                                 <ul class="list-group list-unstyled">
                                     <?php  
-                                    if (count($summary_unique_customer_by_date) > 0 && isset($summary_unique_customer_by_date[0]['count_pay'])) { ?>
+                                    if (count($summary_unique_customer_by_date) > 0 && isset($summary_unique_customer_by_date[0]['count_pay'])) { 
+
+                                        $count_customer = $summary_unique_customer_by_date[0]['count_customer'] > 0 ? $summary_unique_customer_by_date[0]['count_customer'] : 1;
+                                        ?>
                                         <li class="p-2 border-bottom">
                                             <div class="w-100">
                                                 <a href="#">Cust Payment</a>
@@ -195,7 +199,7 @@
                                                             <span class="tip-arrow"></span>
                                                         </span>
                                                     </div>
-                                                    <span class="fill" data-percentage="<?php echo round(($summary_unique_customer_by_date[0]['count_pay']/$summary_unique_customer_by_date[0]['count_customer'])*100) ; ?>"></span>
+                                                    <span class="fill" data-percentage="<?php echo round(($summary_unique_customer_by_date[0]['count_pay']/$count_customer)*100) ; ?>"></span>
                                                 </div>
                                             </div>
                                         </li>
@@ -208,7 +212,7 @@
                                                             <span class="tip-arrow"></span>
                                                         </span>
                                                     </div>
-                                                    <span class="fill" data-percentage="<?php echo round(($summary_unique_customer_by_date[0]['count_nopay']/$summary_unique_customer_by_date[0]['count_customer'])*100) ; ?>"></span>
+                                                    <span class="fill" data-percentage="<?php echo round(($summary_unique_customer_by_date[0]['count_nopay']/$count_customer)*100) ; ?>"></span>
                                                 </div>
                                             </div>
                                         </li>
@@ -267,9 +271,20 @@
                                         <!-- Start Summary Payment by Regional -->
                                         <?php 
                                         if (count($summary_payment_by_regional) > 0) { 
+                                            // cari total all payment
+                                            $total_all_sum_payment = array_sum(array_map(function($item) { 
+                                                return $item['sum_payment']; 
+                                            }, $summary_payment_by_regional));
+                                            $total_all_count_order = array_sum(array_map(function($item) { 
+                                                return $item['count_order']; 
+                                            }, $summary_payment_by_regional));
+                                            $total_all_sum_payment = array_sum(array_map(function($item) { 
+                                                return $item['count_success']; 
+                                            }, $summary_payment_by_regional));
+
                                             for ($i=0; $i < count($summary_payment_by_regional); $i++) { 
-                                                $percentage_order = round(($summary_payment_by_regional[$i]['count_order']/$summary_payment_by_regional[$i]['count_customer'])*100);
-                                                $percentage_success = round(($summary_payment_by_regional[$i]['count_success']/$summary_payment_by_regional[$i]['count_customer'])*100);
+                                                $percentage_order = floor(($summary_payment_by_regional[$i]['count_order']/$total_all_count_order)*100);
+                                                $percentage_success = floor(($summary_payment_by_regional[$i]['count_success']/$total_all_sum_payment)*100);
 
                                             ?>
                                                 <td>
@@ -284,7 +299,7 @@
                                                                 <td>
                                                                     <input class="knob" data-width="150" readonly
                                                                     data-displayPrevious=true data-fgColor="#0bb2d4"
-                                                                    data-skin="tron" data-thickness=".1" value="<?php echo round(($summary_payment_by_regional[$i]['count_success']/$summary_payment_by_regional[$i]['count_order'])*100); ?>">
+                                                                    data-skin="tron" data-thickness=".1" value="<?php echo floor(($summary_payment_by_regional[$i]['sum_payment']/$total_all_sum_payment)*100); ?>">
 
                                                                 </td>
                                                             </tr>
@@ -762,103 +777,106 @@
     <!-- <script src="dist/js/home.script.js"></script> -->
     <!-- END: Page JS-->
     <script>
-        var primarycolor = getComputedStyle(document.body).getPropertyValue('--primarycolor');
-        var bordercolor = getComputedStyle(document.body).getPropertyValue('--bordercolor');
-        var bodycolor = getComputedStyle(document.body).getPropertyValue('--bodycolor');
-        var theme = 'light';
-        if ($('body').hasClass('dark')) {
-            theme = 'dark';
-        }
-        if ($('body').hasClass('dark-alt')) {
-            theme = 'dark';
-        }
+        $( document ).ready(function() {
 
-        if ($('.barfiller').length > 0) {
-        	$(".barfiller").each(function () {
-        		$(this).barfiller({
-        			barColor: $(this).data('color')
-        		});
-        	});
-        }
-
-        if ($('#c3_bar_chart').length > 0) {
-            <?php
-            if (count($summary_order_by_date_chart) > 0) {
-                $data_xAxis = array_column($summary_order_by_date_chart, 'label_date');
-                // Prepend ke index awal
-                array_unshift($data_xAxis,'x');
-                $data_Order = array_column($summary_order_by_date_chart, 'count_order');
-                // Prepend ke index awal
-                array_unshift($data_Order,'Order');
-                $data_Success = array_column($summary_order_by_date_chart, 'count_success');
-                // Prepend ke index awal
-                array_unshift($data_Success,'Success');
-                $data_Payment = array_column($summary_order_by_date_chart, 'count_pay');
-                // Prepend ke index awal
-                array_unshift($data_Payment,'Payment');
+            var primarycolor = getComputedStyle(document.body).getPropertyValue('--primarycolor');
+            var bordercolor = getComputedStyle(document.body).getPropertyValue('--bordercolor');
+            var bodycolor = getComputedStyle(document.body).getPropertyValue('--bodycolor');
+            var theme = 'light';
+            if ($('body').hasClass('dark')) {
+                theme = 'dark';
             }
-            else{
-                $data_xAxis = ['x'];
-                $data_Order = ['Order'];
-                $data_Success = ['Success'];
-                $data_Payment = ['Payment'];
+            if ($('body').hasClass('dark-alt')) {
+                theme = 'dark';
             }
-            ?>
-            var chart = c3.generate({
-                bindto: '#c3_bar_chart',
-                data: {
-                    x: 'x',
-                    columns: [
-                    // ['x', '2010-01-01', '2011-01-01', '2012-01-01', '2013-01-01', '2014-01-01', '2015-01-01'],
-                    <?php echo json_encode($data_xAxis); ?>,
-                    // Start Data
-                    /*['Order', 30, 200, 100, 400, 150, 250, 400, 150, 250, 30, 200, 100, 400,
-                    150, 250, 400, 150, 250, 250, 30, 200, 100, 400, 150, 250, 400, 150,
-                    250, 250, 400, 150, 250
-                    ],
-                    ['Success', 130, 100, 140, 200, 150, 50, 30, 200, 100, 400, 150, 250,
-                    400, 150, 250, 400, 150, 250, 250, 30, 200, 100, 400, 150, 250, 400,
-                    150, 250, 250, 400, 150, 250
-                    ],
-                    ['Payment', 90, 81, 120, 173, 120, 31, 5, 99, 26, 387, 123, 201,
-                    300, 120, 160, 392, 76, 86, 144, 25, 54, 39, 86, 121, 146, 201,
-                    106, 90, 89, 300, 150, 222
-                    ]*/
-                    <?php echo json_encode($data_Order); ?>,
-                    <?php echo json_encode($data_Success); ?>,
-                    <?php echo json_encode($data_Payment); ?>,
-                    // End Data
-                    ],
-                    type: 'bar',
-                    types: {
-                        'Payment': 'line'
-                    },
-                    colors: {
-                        'Order': '#9999ff', 
-                        'Success': '#ff8c1a', 
-                        'Payment': '#ffc34d' 
-                    },
-                },
-                axis: {
-                    x: {
-                        type: 'timeseries',
-                        tick: {
-                            format: '%m-%d'
-                        }
-                    }
-                },
-                bar: {
-                    width: {
-                            ratio: 0.5 // this makes bar width 50% of length between ticks
-                        }
-                        // or
-                        //width: 100 // this makes bar width 100px
-                    }
-                });
-        }
 
-        // Isi value
-        $('#template').val('<?php echo $sel_template; ?>');
+            if ($('.barfiller').length > 0) {
+            	$(".barfiller").each(function () {
+            		$(this).barfiller({
+            			barColor: $(this).data('color')
+            		});
+            	});
+            }
+
+            if ($('#c3_bar_chart').length > 0) {
+                <?php
+                if (count($summary_order_by_date_chart) > 0) {
+                    $data_xAxis = array_column($summary_order_by_date_chart, 'label_date');
+                    // Prepend ke index awal
+                    array_unshift($data_xAxis,'x');
+                    $data_Order = array_column($summary_order_by_date_chart, 'count_order');
+                    // Prepend ke index awal
+                    array_unshift($data_Order,'Order');
+                    $data_Success = array_column($summary_order_by_date_chart, 'count_success');
+                    // Prepend ke index awal
+                    array_unshift($data_Success,'Success');
+                    $data_Payment = array_column($summary_order_by_date_chart, 'count_pay');
+                    // Prepend ke index awal
+                    array_unshift($data_Payment,'Payment');
+                }
+                else{
+                    $data_xAxis = ['x'];
+                    $data_Order = ['Order'];
+                    $data_Success = ['Success'];
+                    $data_Payment = ['Payment'];
+                }
+                ?>
+                var chart = c3.generate({
+                    bindto: '#c3_bar_chart',
+                    data: {
+                        x: 'x',
+                        columns: [
+                        // ['x', '2010-01-01', '2011-01-01', '2012-01-01', '2013-01-01', '2014-01-01', '2015-01-01'],
+                        <?php echo json_encode($data_xAxis); ?>,
+                        // Start Data
+                        /*['Order', 30, 200, 100, 400, 150, 250, 400, 150, 250, 30, 200, 100, 400,
+                        150, 250, 400, 150, 250, 250, 30, 200, 100, 400, 150, 250, 400, 150,
+                        250, 250, 400, 150, 250
+                        ],
+                        ['Success', 130, 100, 140, 200, 150, 50, 30, 200, 100, 400, 150, 250,
+                        400, 150, 250, 400, 150, 250, 250, 30, 200, 100, 400, 150, 250, 400,
+                        150, 250, 250, 400, 150, 250
+                        ],
+                        ['Payment', 90, 81, 120, 173, 120, 31, 5, 99, 26, 387, 123, 201,
+                        300, 120, 160, 392, 76, 86, 144, 25, 54, 39, 86, 121, 146, 201,
+                        106, 90, 89, 300, 150, 222
+                        ]*/
+                        <?php echo json_encode($data_Order); ?>,
+                        <?php echo json_encode($data_Success); ?>,
+                        <?php echo json_encode($data_Payment); ?>,
+                        // End Data
+                        ],
+                        type: 'bar',
+                        types: {
+                            'Payment': 'line'
+                        },
+                        colors: {
+                            'Order': '#9999ff', 
+                            'Success': '#ff8c1a', 
+                            'Payment': '#ffc34d' 
+                        },
+                    },
+                    axis: {
+                        x: {
+                            type: 'timeseries',
+                            tick: {
+                                format: '%m-%d'
+                            }
+                        }
+                    },
+                    bar: {
+                        width: {
+                                ratio: 0.5 // this makes bar width 50% of length between ticks
+                            }
+                            // or
+                            //width: 100 // this makes bar width 100px
+                        }
+                    });
+            }
+
+            // Isi value
+            $('#template').val('<?php echo $sel_template; ?>');
+        });
 
     </script>
 </body>
