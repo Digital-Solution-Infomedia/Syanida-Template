@@ -151,7 +151,96 @@
                         </div>
                         <div class="card-body">
                           <form class="needs-validation" action="<?=base_url()?>Campaign_management/resources/simpan_resource_customer" method="post" novalidate>
-                            <div class="form-row">
+                          <div class="form-row">
+                                  <div class="col-md-5">
+                                    <div class="row">
+                                      <div class="col-md-12 mb-3">
+                                        <label for="">Kriteria Name</label>
+                                        <input type="text" class="form-control" id="" placeholder="Kriteria Nmae" />
+                                        <div class="valid-feedback">Looks good!</div>
+                                      </div>
+                                      <div class="col-md-6 mb-3">
+                                        <label for="username1">Area</label>
+                                        <select multiple data-allow-clear="1" required>
+                                          <option>Reg 1</option>
+                                          <option>Reg 2</option>
+                                          <option>Reg 3</option>
+                                          <option>Reg 4</option>
+                                          <option>Reg 5</option>
+                                          <option>Reg 6</option>
+                                          <option>Reg 7</option>
+                                        </select>
+                                      </div>
+                                      <div class="col-md-6 mb-3">
+                                        <label for="">Paket</label>
+                                        <select multiple data-allow-clear="1" required>
+                                          <option>Pkg 1</option>
+                                          <option>Pkg 2</option>
+                                          <option>Pkg 3</option>
+                                        </select>
+                                        <div class="valid-feedback">Looks good!</div>
+                                      </div>
+                                      <div class="col-md-12 mb-3">
+                                        <label for="">History View Channel</label>
+                                        <select multiple="multiple" data-allow-clear="1" required>
+                                          <option>Most Viewed 1</option>
+                                          <option>Most Viewed 2</option>
+                                          <option>Most Viewed 3</option>
+                                          <option>Most Viewed 4</option>
+                                        </select>
+                                        <div class="valid-feedback">Looks good!</div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-7">
+                                    <div class="row">
+                                      <div class="col-md-6 mb-3">
+                                        <label for="">Last Campaign Time</label>
+                                        <input type="text" class="form-control" id="" placeholder="2" />
+                                        <div class="valid-feedback">Looks good!</div>
+                                      </div>
+                                      <div class="col-md-6 mb-3">
+                                        <label for="">History Campaign Topic</label>
+                                        <select multiple data-allow-clear="1" required>
+                                          <option>History 1</option>
+                                          <option>History 2</option>
+                                          <option>History 3</option>
+                                          <option>History 4</option>
+                                        </select>
+                                        <div class="valid-feedback">Looks good!</div>
+                                      </div>
+                                      <div class="col-md-6 mb-3">
+                                        <label for="">AddOn Information</label>
+                                        <select  multiple data-allow-clear="1" required>
+                                          <option label="Choose on thing">Choose on thing</option>
+                                          <option>Social Media</option>
+                                          <option>147</option>
+                                          <option>Aplikasi MyindiHome</option>
+                                          <option>Plaza</option>
+                                        </select>
+                                        <div class="valid-feedback">Looks good!</div>
+                                      </div>
+                                      <div class="col-md-6 mb-3">
+                                        <label for="">Type Interaction</label>
+                                        <select multiple data-allow-clear="1" required>
+                                          <option label="Choose on thing">Choose on thing</option>
+                                          <option>Information</option>
+                                          <option>Registration</option>
+                                          <option>ComplainMyindiHome</option>
+                                          <option>Profiing</option>
+                                        </select>
+                                        <div class="valid-feedback">Looks good!</div>
+                                      </div>
+                                      <div class="col-md-12 mb-3">
+                                        <label for="">Tag Interaction</label>
+                                        <select class="tokenizationSelect2" multiple data-allow-clear="1" required>
+                                        </select>
+                                        <div class="valid-feedback">Looks good!</div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>  
+                          <!-- <div class="form-row">
                               <div class="col-md-5">
                                 <div class="row">
                                   <input type="hiddden" name="id_customer" class="form-control" id="id_customer" />
@@ -230,7 +319,7 @@
                                   <div class="valid-feedback">Looks good!</div>
                                 </div>
                               </div>
-                            </div>
+                            </div> -->
                             <button class="btn btn-primary float-right" type="submit">
                               Submit form
                             </button>
