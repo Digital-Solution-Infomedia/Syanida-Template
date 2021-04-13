@@ -5,19 +5,37 @@ if (!defined('BASEPATH'))
 
 class Customer_model extends CI_Model {
     private $_table = "trx_customer_kriteria";
+    private $_table_paket = "trx_paket";
 
     public $id;
 
-
     public function getAllCustomer()
     {
-        return $this->db->get($this->_table)->result();
+        $this->db->join('dim_regional', 'trx_customer_kriteria.regional_key = dim_regional.regional_key');
+        $this->db->join('dim_channel', 'trx_customer_kriteria.channel_key = dim_channel.channel_key');
+        $this->db->join('dim_layanan', 'trx_customer_kriteria.layanan_key = dim_layanan.layanan_key');
+        $customer_paket = $this->db->get($this->_table)->result();
+        for($i = 0; $i<count($customer_paket); $i++) {
+            $with_paket = $this->db->get_where($this->_table_paket, ["id" => $customer_paket[$i]->paket_key])->result();
+            for($j = 0; $j < count($with_paket); $j++) {
+                $customer_paket[$i]->nama_paket[$j] = $with_paket[$j]->nama_paket;
+            }
+
+
+        }
+
+        return $customer_paket;
+
+        // $this->db->join($this->_table, $this->_table_paket, 'trx_customer_criteria.paket_key=trx_paket.id');
+        // $this->db->get($this->_table)->result();
+        // var_dump($this->db->get($this->_table)->result());
     }
 
     public function saveCustomer()
     {
         $id_paket = $this->maxPaket();
         $paket = count($this->input->post('paket'));
+        $data_paket = [];
 
         for ($i=0; $i < $paket; $i++) { 
             $data_paket[$i] = array(
@@ -28,18 +46,78 @@ class Customer_model extends CI_Model {
         }
         // $this->product_id = uniqid();
         // $data = json_decode(file_get_contents('php://input'), true);
+        $data_type = [];
+        for($j = 0; $j < count($this->input->post('type_interaction')); $j++) {
+            $data_type[$j] = $this->input->post('type_interaction')[$j];
+
+        }
+        $insert_data_type = implode(",", $data_type);
+
+        $data_tag = [];
+        for($j = 0; $j < count($this->input->post('tag_interaction')); $j++) {
+            $data_tag[$j] = $this->input->post('tag_interaction')[$j];
+        }
+        $insert_data_tag = implode(",", $data_tag);
         
         $data = array(
             'nama_kriteria' => $this->input->post("nama_kriteria"),
             'regional_key' => $this->input->post('regional'),
             'paket_key' => $id_paket,
             'channel_key' => $this->input->post("channel"),
-            'moss_subs_notps' => $this->input->post('moss_subs_notps'),
             'last_campaign_time' => $this->input->post("last_campaign_time"),
-            'history_campaign_topic' => $this->input->post("history_campaign_topic"),
-            'layanan_key' => $this->input->post('layanan')
+            'layanan_key' => $this->input->post('layanan'),
+            'type_interaction' => $insert_data_type,
+            'tag_interaction' => $insert_data_tag
         );
         return $this->db->insert($this->_table, $data);
+    }
+
+    public function updateCustomer()
+    {
+        $id_paket = $this->maxPaket();
+        $paket = count($this->input->post('paket'));
+
+        $customer_data = $this->db->get_where("trx_customer_kriteria", ["id" => $this->input->post("id_customer")])->row();
+        
+        $this->db->delete("trx_paket", ["id"=>$customer_data->paket_key]);
+
+        $data_paket = [];
+        for ($i=0; $i < $paket; $i++) { 
+            $data_paket[$i] = array(
+              'id' => $id_paket,
+              'nama_paket' => $this->input->post('paket')[$i]  
+            );
+            $this->db->insert('trx_paket',$data_paket[$i]);
+        }
+        // $this->product_id = uniqid();
+        // $data = json_decode(file_get_contents('php://input'), true);
+        $this->id = $this->input->post("id_customer");
+
+        $data_type = [];
+        for($j = 0; $j < count($this->input->post('type_interaction')); $j++) {
+            $data_type[$j] = $this->input->post('type_interaction')[$j];
+
+        }
+        $insert_data_type = implode(",", $data_type);
+
+        $data_tag = [];
+        for($j = 0; $j < count($this->input->post('tag_interaction')); $j++) {
+            $data_tag[$j] = $this->input->post('tag_interaction')[$j];
+        }
+        $insert_data_tag = implode(",", $data_tag);
+        
+
+        $data = array(
+            'nama_kriteria' => $this->input->post("nama_kriteria"),
+            'regional_key' => $this->input->post('regional'),
+            'paket_key' => $id_paket,
+            'channel_key' => $this->input->post("channel"),
+            'last_campaign_time' => $this->input->post("last_campaign_time"),
+            'layanan_key' => $this->input->post('layanan'),
+            'type_interaction' => $insert_data_type,
+            'tag_interaction' => $insert_data_tag
+        );
+        return $this->db->update($this->_table, $data, array('id' => $this->id));
     }
 
     function maxPaket() {

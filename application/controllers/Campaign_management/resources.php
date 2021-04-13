@@ -90,7 +90,10 @@ class resources extends CI_Controller
 		$id = $this->input->post("id_customer");
 		if ($id == null) {	
 			$customer->saveCustomer();
+		} else {
+			$customer->updateCustomer();
 		}
 		$this->index();
+		redirect("Campaign_management/resources");
 	}
 }

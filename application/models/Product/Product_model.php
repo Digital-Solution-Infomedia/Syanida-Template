@@ -20,7 +20,7 @@ class Product_model extends CI_Model {
     public function getAll()
     {
         return $this->db->query("SELECT DISTINCT dim_produk.produk_key, dim_produk.produk_value, dim_produk.produk_description, 
-        dim_category_produk.category_produk_value, dim_category_produk.category_produk_description FROM dim_produk 
+        dim_produk.category_produk_key, dim_category_produk.category_produk_value, dim_category_produk.category_produk_description FROM dim_produk 
         LEFT JOIN dim_category_produk ON dim_produk.category_produk_key = dim_category_produk.category_produk_key")->result();
     }
 

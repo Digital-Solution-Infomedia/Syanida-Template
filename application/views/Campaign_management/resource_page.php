@@ -80,7 +80,7 @@
                                     <select name="category_produk_value" class="form-control" id="category_produk_value" required>
                                     <option value="">-- Pilih Nama Category Produk --</option>
                                      <?php foreach($category_produk as $cp): ?>
-                                      <option value="<?=$cp->category_produk_key?>"><?=$cp->category_produk_value?></option>
+                                      <option value="<?=$cp->category_produk_key?>" ><?=$cp->category_produk_value?></option>
                                      <?php endforeach; ?>
                                     </select>                                                                                                       
                                     <div class="valid-feedback">Looks good!</div>
@@ -155,39 +155,36 @@
                                   <div class="col-md-5">
                                     <div class="row">
                                       <div class="col-md-12 mb-3">
-                                        <label for="">Kriteria Name</label>
-                                        <input type="text" class="form-control" id="" placeholder="Kriteria Nmae" />
-                                        <div class="valid-feedback">Looks good!</div>
+                                      <input hidden name="id_customer" class="form-control" id="id_customer" />
+                                      <label for="nama_kriteria">Nama Kriteria</label>
+                                    <input type="text" name="nama_kriteria" class="form-control" id="nama_kriteria" placeholder="Nama Kriteria" required />
+                                    <div class="valid-feedback">Looks good!</div>
                                       </div>
                                       <div class="col-md-6 mb-3">
-                                        <label for="username1">Area</label>
-                                        <select multiple data-allow-clear="1" required>
-                                          <option>Reg 1</option>
-                                          <option>Reg 2</option>
-                                          <option>Reg 3</option>
-                                          <option>Reg 4</option>
-                                          <option>Reg 5</option>
-                                          <option>Reg 6</option>
-                                          <option>Reg 7</option>
+                                        <label for="regional">Area</label>
+                                        <select name="regional" id="regional" required>
+                                          <option value="">-- Pilih Area --</option>
+                                          <?php foreach($tampil_regional as $tr): ?>
+                                          <option value="<?=$tr->regional_key?>"><?=$tr->regional_value?></option>
+                                        <?php endforeach; ?>
                                         </select>
                                       </div>
                                       <div class="col-md-6 mb-3">
-                                        <label for="">Paket</label>
-                                        <select multiple data-allow-clear="1" required>
-                                          <option>Pkg 1</option>
-                                          <option>Pkg 2</option>
-                                          <option>Pkg 3</option>
+                                        <label for="paket">Paket</label>
+                                        <select multiple data-allow-clear="1" class="form-control multiple-paket" name="paket[]" id="paket" required>
+                                          <option value="Pkg 1">Pkg 1</option>
+                                          <option value="Pkg 2">Pkg 2</option>
+                                          <option value="Pkg 3">Pkg 3</option>
                                         </select>
-                                        <div class="valid-feedback">Looks good!</div>
                                       </div>
-                                      <div class="col-md-12 mb-3">
-                                        <label for="">History View Channel</label>
-                                        <select multiple="multiple" data-allow-clear="1" required>
-                                          <option>Most Viewed 1</option>
-                                          <option>Most Viewed 2</option>
-                                          <option>Most Viewed 3</option>
-                                          <option>Most Viewed 4</option>
-                                        </select>
+                                      <div class="col-md-6 mb-6">
+                                      <label for="channel">History View Channel</label>
+                                      <select name="channel" id="channel" required>
+                                      <option value="">-- Pilih Channel --</option>
+                                        <?php foreach($tampil_channel as $tc): ?>
+                                        <option value="<?=$tc->channel_key?>"><?=$tc->channel_value?></option>
+                                      <?php endforeach; ?>
+                                      </select>
                                         <div class="valid-feedback">Looks good!</div>
                                       </div>
                                     </div>
@@ -195,35 +192,24 @@
                                   <div class="col-md-7">
                                     <div class="row">
                                       <div class="col-md-6 mb-3">
-                                        <label for="">Last Campaign Time</label>
-                                        <input type="text" class="form-control" id="" placeholder="2" />
+                                        <label for="last_campaign_time">Last Campaign Time</label>
+                                        <input type="datetime-local" name="last_campaign_time" class="form-control" id="last_campaign_time" placeholder="Last Campaign Time" required />
                                         <div class="valid-feedback">Looks good!</div>
                                       </div>
                                       <div class="col-md-6 mb-3">
-                                        <label for="">History Campaign Topic</label>
-                                        <select multiple data-allow-clear="1" required>
-                                          <option>History 1</option>
-                                          <option>History 2</option>
-                                          <option>History 3</option>
-                                          <option>History 4</option>
+                                        <label for="layanan">AddOn Information</label>
+                                        <select name="layanan" id="layanan" required>
+                                        <option value="">-- Pilih AddOn Information --</option>
+                                            <?php foreach($tampil_layanan as $tl): ?>
+                                            <option value="<?=$tl->layanan_key?>"><?=$tl->layanan_value?></option>
+                                          <?php endforeach; ?>
                                         </select>
                                         <div class="valid-feedback">Looks good!</div>
                                       </div>
                                       <div class="col-md-6 mb-3">
-                                        <label for="">AddOn Information</label>
-                                        <select  multiple data-allow-clear="1" required>
-                                          <option label="Choose on thing">Choose on thing</option>
-                                          <option>Social Media</option>
-                                          <option>147</option>
-                                          <option>Aplikasi MyindiHome</option>
-                                          <option>Plaza</option>
-                                        </select>
-                                        <div class="valid-feedback">Looks good!</div>
-                                      </div>
-                                      <div class="col-md-6 mb-3">
-                                        <label for="">Type Interaction</label>
-                                        <select multiple data-allow-clear="1" required>
-                                          <option label="Choose on thing">Choose on thing</option>
+                                        <label for="type_interaction">Type Interaction</label>
+                                        <select multiple data-allow-clear="1" id="type_interaction" name="type_interaction[]" required>
+                                          <option label="">-- Choose on thing --</option>
                                           <option>Information</option>
                                           <option>Registration</option>
                                           <option>ComplainMyindiHome</option>
@@ -232,8 +218,13 @@
                                         <div class="valid-feedback">Looks good!</div>
                                       </div>
                                       <div class="col-md-12 mb-3">
-                                        <label for="">Tag Interaction</label>
-                                        <select class="tokenizationSelect2" multiple data-allow-clear="1" required>
+                                        <label for="tag_interaction">Tag Interaction</label>
+                                        <select class="tokenizationSelect2" multiple data-allow-clear="1" name="tag_interaction[]" id="tag_interaction" required>
+                                          <option label="">-- Choose on thing --</option>
+                                          <option>Tag 1</option>
+                                          <option>Tag 2</option>
+                                          <option>Tag 3</option>
+                                          <option>Tag 4</option>
                                         </select>
                                         <div class="valid-feedback">Looks good!</div>
                                       </div>
@@ -341,10 +332,10 @@
                                   <th>Regional</th>
                                   <th>Package</th>
                                   <th>History View Channel</th>
-                                  <th>Subscription</th>
                                   <th style="width: 5%">Last Campaign</th>
-                                  <th>Last Campaign Topic</th>
                                   <th>AddOn Info</th>
+                                  <th>Type Interaction</th>
+                                  <th>Tag Interaction</th>
                                   <th style="width: 5%">Tools</th>
                                 </tr>
                               </thead>
@@ -411,13 +402,11 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
   <script>
-  $(document).ready(function() {
-    $('.multiple-paket').select2(); 
-  });
 
     var quill = new Quill('#snow-container', {
       theme: 'snow'
     });
+    $('#channel').select2();
     
     showAllProduct();
     showDataCustomer();
@@ -437,10 +426,9 @@
         document.getElementById("produk_value").value = produk_value;
         // document.getElementById("quill_produk_description").value = quill.root.innerHTML;
         document.getElementById("category_produk_description").value = category_produk_description;
-        
-        // document.getElementById('category_produk_key').value = category_produk_value;
-        var x = document.getElementById("category_produk_value");
-        x.options[x.selectedIndex].text = category_produk_value;
+
+        var selectCategory = $("#category_produk_value");
+        selectCategory.val(category_produk_key).trigger("change");
         // document.getElementById("category_produk_key").value = category_produk_key;
       }
 
@@ -457,7 +445,9 @@
         // if (produk_description) {
           //     inputVal = produk_description.value;
           // }
-          document.getElementById("category_produk_value").selectedIndex = 0;
+          var selectCategory = $("#category_produk_value");
+        selectCategory.val("").trigger("change");
+
         console.log(document.getElementById("category_produk_description").selectedIndex);
         document.getElementById("category_produk_description").value = "";
         
@@ -481,6 +471,7 @@
         var category_produk_value = y[x].text;
 
         var form = $("#myForm1").serialize() + '&produk_description=' + quill.root.innerHTML;
+        console.log(form);
 
         var tosubmit = {
             "produk_key": produk_key,
@@ -531,6 +522,7 @@
             dataRes = data;
             let html = '';
             let no = 1;
+            console.log(data);
             datatable = $('#example').DataTable({
               "data": data.posts,
               "columns": [
@@ -663,16 +655,26 @@
         });
       }
 
-      function mutateFormCustomer(id, nama_kriteria, regional_key, paket_key, channel_key, moss_subs_notps, last_campaign_time, history_campaign_topic, layanan_key) {
+
+      //Customer
+      function mutateFormCustomer(id, nama_kriteria, regional_key, paket_key, channel_key, moss_subs_notps, last_campaign_time, history_campaign_topic, layanan_key, type_interaction,tag_interaction, nama_paket) {
         document.getElementById('id_customer').value = id;
         document.getElementById("nama_kriteria").value = nama_kriteria;
-        document.getElementById("regional").value = regional_key;
-        document.getElementById("paket").value = paket_key;
-        document.getElementById("channel").value = channel_key;
-        document.getElementById('moss_subs_notps').value = moss_subs_notps;
-        document.getElementById("last_campaign_time").value = last_campaign_time;
-        document.getElementById('history_campaign_topic').value = history_campaign_topic;
-        document.getElementById('layanan').value = layanan_key;
+        $("#regional").val(regional_key).trigger('change');
+        var nama_paket_select = nama_paket.split(',');
+        $("#paket").val(nama_paket_select).trigger('change');
+        $("#channel").val(channel_key).trigger('change');
+
+        var format_date = new Date(last_campaign_time).toISOString().slice(0, 16);
+        document.getElementById("last_campaign_time").value = format_date;
+
+        $('#layanan').val(layanan_key).trigger('change');
+
+        var type_interaction_select = type_interaction.split(',');
+        $('#type_interaction').val(type_interaction_select).trigger('change');
+
+        var tag_interaction_select = tag_interaction.split(',');
+        $('#tag_interaction').val(tag_interaction_select).trigger('change');
       }
       
       function showDataCustomer() {
@@ -699,18 +701,14 @@
                   "data": "nama_kriteria"
                 },
                 {
-                  "data": "regional_key"
+                  "data": "regional_value"
                 },
                 {
-                  "data": "paket_key"
+                  "data": "nama_paket"
                 }
                 ,
                 {
-                  "data": "channel_key"
-                }
-                ,
-                {
-                  "data": "moss_subs_notps"
+                  "data": "channel_value"
                 }
                 ,
                 {
@@ -718,16 +716,20 @@
                 }
                 ,
                 {
-                  "data": "history_campaign_topic"
+                  "data": "layanan_value"
                 }
                 ,
                 {
-                  "data": "layanan_key"
+                  "data": "type_interaction"
+                }
+                ,
+                {
+                  "data": "tag_interaction"
                 }
                 ,
                 {
                   "render": function(data, type, row, meta) {
-                    html = `<a href="javascript:void(0)" onclick="mutateFormCustomer('${row.id}','${row.nama_kriteria}','${row.regional_key}','${row.paket_key}','${row.channel_key}','${row.moss_subs_notps}','${last_campaign_time}','${row.history_campaign_topic}','${row.layanan_key}');" 
+                    html = `<a href="javascript:void(0)" onclick="mutateFormCustomer('${row.id}','${row.nama_kriteria}','${row.regional_key}','${row.paket_key}','${row.channel_key}','${row.moss_subs_notps}','${row.last_campaign_time}','${row.history_campaign_topic}','${row.layanan_key}','${row.type_interaction}','${row.tag_interaction}', '${row.nama_paket}');" 
                     class = "ml-2"><i class = "icon-pencil"></i></a >`;
                     return html;
                   }
