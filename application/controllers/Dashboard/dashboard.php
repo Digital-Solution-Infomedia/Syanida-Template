@@ -24,12 +24,12 @@ class dashboard extends CI_Controller {
 	public function get_perchannelblast(){
 		$tot['wa'] = $this->db->query("SELECT
 		channel_key,
-		( SELECT count(*) FROM trx_blast WHERE tgl_deliver IS NOT NULL ) AS jmldeliver,
-		( SELECT count(*) FROM trx_blast WHERE tgl_klicked IS NOT NULL ) AS jml_klicked,
-		( SELECT count(*) FROM trx_blast WHERE tgl_read IS NOT NULL ) AS tgl_read,
-		( SELECT count(*) FROM trx_blast WHERE tgl_activated IS NOT NULL ) AS tgl_activated,
-		( SELECT count(*) FROM trx_blast WHERE tgl_ps IS NOT NULL ) AS tgl_ps,
-		( SELECT count(*) FROM trx_blast WHERE tgl_blast IS NOT NULL ) AS tgl_blast,
+		( SELECT count(*) FROM trx_blast WHERE tgl_deliver IS NOT NULL AND channel_key=1) AS jmldeliver,
+		( SELECT count(*) FROM trx_blast WHERE tgl_klicked IS NOT NULL AND channel_key=1) AS jml_klicked,
+		( SELECT count(*) FROM trx_blast WHERE tgl_read IS NOT NULL AND channel_key=1) AS tgl_read,
+		( SELECT count(*) FROM trx_blast WHERE tgl_activated IS NOT NULL AND channel_key=1) AS tgl_activated,
+		( SELECT count(*) FROM trx_blast WHERE tgl_ps IS NOT NULL AND channel_key=1) AS tgl_ps,
+		( SELECT count(*) FROM trx_blast WHERE tgl_blast IS NOT NULL AND channel_key=1 ) AS tgl_blast,
 		count(*) AS tot 
 	FROM
 		trx_blast 
@@ -39,12 +39,12 @@ class dashboard extends CI_Controller {
 		channel_key")->row();
 		$tot['sms'] = $this->db->query("SELECT
 		channel_key,
-		( SELECT count(*) FROM trx_blast WHERE tgl_deliver IS NOT NULL ) AS jmldeliver,
-		( SELECT count(*) FROM trx_blast WHERE tgl_klicked IS NOT NULL ) AS jml_klicked,
-		( SELECT count(*) FROM trx_blast WHERE tgl_read IS NOT NULL ) AS tgl_read,
-		( SELECT count(*) FROM trx_blast WHERE tgl_activated IS NOT NULL ) AS tgl_activated,
-		( SELECT count(*) FROM trx_blast WHERE tgl_ps IS NOT NULL ) AS tgl_ps,
-		( SELECT count(*) FROM trx_blast WHERE tgl_blast IS NOT NULL ) AS tgl_blast,
+		( SELECT count(*) FROM trx_blast WHERE tgl_deliver IS NOT NULL   AND channel_key=2) AS jmldeliver,
+		( SELECT count(*) FROM trx_blast WHERE tgl_klicked IS NOT NULL  AND channel_key=2) AS jml_klicked,
+		( SELECT count(*) FROM trx_blast WHERE tgl_read IS NOT NULL  AND channel_key=2) AS tgl_read,
+		( SELECT count(*) FROM trx_blast WHERE tgl_activated IS NOT NULL  AND channel_key=2) AS tgl_activated,
+		( SELECT count(*) FROM trx_blast WHERE tgl_ps IS NOT NULL  AND channel_key=2) AS tgl_ps,
+		( SELECT count(*) FROM trx_blast WHERE tgl_blast IS NOT NULL  AND channel_key=2) AS tgl_blast,
 		count(*) AS tot 
 	FROM
 		trx_blast 
@@ -54,12 +54,12 @@ class dashboard extends CI_Controller {
 		channel_key")->row();
 		$tot['email'] = $this->db->query("SELECT
 		channel_key,
-		( SELECT count(*) FROM trx_blast WHERE tgl_deliver IS NOT NULL ) AS jmldeliver,
-		( SELECT count(*) FROM trx_blast WHERE tgl_klicked IS NOT NULL ) AS jml_klicked,
-		( SELECT count(*) FROM trx_blast WHERE tgl_read IS NOT NULL ) AS tgl_read,
-		( SELECT count(*) FROM trx_blast WHERE tgl_activated IS NOT NULL ) AS tgl_activated,
-		( SELECT count(*) FROM trx_blast WHERE tgl_ps IS NOT NULL ) AS tgl_ps,
-		( SELECT count(*) FROM trx_blast WHERE tgl_blast IS NOT NULL ) AS tgl_blast,
+		( SELECT count(*) FROM trx_blast WHERE tgl_deliver IS NOT NULL AND channel_key=3) AS jmldeliver,
+		( SELECT count(*) FROM trx_blast WHERE tgl_klicked IS NOT NULL  AND channel_key=3 ) AS jml_klicked,
+		( SELECT count(*) FROM trx_blast WHERE tgl_read IS NOT NULL  AND channel_key=3) AS tgl_read,
+		( SELECT count(*) FROM trx_blast WHERE tgl_activated IS NOT NULL AND channel_key=3 ) AS tgl_activated,
+		( SELECT count(*) FROM trx_blast WHERE tgl_ps IS NOT NULL AND channel_key=3) AS tgl_ps,
+		( SELECT count(*) FROM trx_blast WHERE tgl_blast IS NOT NULL  AND channel_key=3) AS tgl_blast,
 		count(*) AS tot 
 	FROM
 		trx_blast 
@@ -69,12 +69,12 @@ class dashboard extends CI_Controller {
 		channel_key")->row();
 		$tot['total'] = $this->db->query("SELECT
 		channel_key,
-		( SELECT count(*) FROM trx_blast WHERE tgl_deliver IS NOT NULL ) AS jmldeliver,
-		( SELECT count(*) FROM trx_blast WHERE tgl_klicked IS NOT NULL ) AS jml_klicked,
-		( SELECT count(*) FROM trx_blast WHERE tgl_read IS NOT NULL ) AS tgl_read,
+		( SELECT count(*) FROM trx_blast WHERE tgl_deliver IS NOT NULL  ) AS jmldeliver,
+		( SELECT count(*) FROM trx_blast WHERE tgl_klicked IS NOT NULL  ) AS jml_klicked,
+		( SELECT count(*) FROM trx_blast WHERE tgl_read IS NOT NULL   ) AS tgl_read,
 		( SELECT count(*) FROM trx_blast WHERE tgl_activated IS NOT NULL ) AS tgl_activated,
-		( SELECT count(*) FROM trx_blast WHERE tgl_ps IS NOT NULL ) AS tgl_ps,
-		( SELECT count(*) FROM trx_blast WHERE tgl_blast IS NOT NULL ) AS tgl_blast,
+		( SELECT count(*) FROM trx_blast WHERE tgl_ps IS NOT NULL   ) AS tgl_ps,
+		( SELECT count(*) FROM trx_blast WHERE tgl_blast IS NOT NULL) AS tgl_blast,
 		count(*) AS tot 
 	FROM
 		trx_blast 

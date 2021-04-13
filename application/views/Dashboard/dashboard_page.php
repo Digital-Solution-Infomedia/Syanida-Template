@@ -150,35 +150,35 @@
                   <td><?php echo $perchannelblast['wa']->jmldeliver; ?></td>
                   <td><?php echo $perchannelblast['email']->jmldeliver; ?></td>
                   <td><?php echo $perchannelblast['sms']->jmldeliver; ?></td>
-                  <td>300</td>
+                  <td><?php echo $perchannelblast['total']->jmldeliver; ?></td>
                 </tr>
                 <tr>
                   <th scope="row">Read</th>
                   <td><?php echo $perchannelblast['wa']->tgl_read; ?></td>
                   <td><?php echo $perchannelblast['email']->tgl_read; ?></td>
                   <td><?php echo $perchannelblast['sms']->tgl_read; ?></td>
-                  <td>300</td>
+                  <td><?php echo $perchannelblast['total']->tgl_read; ?></td>
                 </tr>
                 <tr>
                   <th scope="row">Clicked</th>
                   <td><?php echo $perchannelblast['wa']->jml_klicked; ?></td>
                   <td><?php echo $perchannelblast['email']->jml_klicked; ?></td>
                   <td><?php echo $perchannelblast['sms']->jml_klicked; ?></td>
-                  <td>300</td>
+                  <td><?php echo $perchannelblast['total']->jml_klicked; ?></td>
                 </tr>
                 <tr>
                   <th scope="row">Activated</th>
                   <td><?php echo $perchannelblast['wa']->tgl_activated; ?></td>
                   <td><?php echo $perchannelblast['email']->tgl_activated; ?></td>
                   <td><?php echo $perchannelblast['sms']->tgl_activated; ?></td>
-                  <td>300</td>
+                  <td><?php echo $perchannelblast['total']->tgl_activated; ?></td>
                 </tr>
                 <tr>
                   <th scope="row">PS</th>
                   <td><?php echo $perchannelblast['wa']->tgl_ps; ?></td>
                   <td><?php echo $perchannelblast['email']->tgl_ps; ?></td>
                   <td><?php echo $perchannelblast['sms']->tgl_ps; ?></td>
-                  <td>300</td>
+                  <td><?php echo $perchannelblast['total']->tgl_ps; ?></td>
                 </tr>
 
               </tbody>
