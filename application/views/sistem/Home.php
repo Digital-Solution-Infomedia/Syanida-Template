@@ -103,7 +103,7 @@
                                         ?>
 
                                             <div class="col-sm-6">
-                                                <a href="<?php echo base_url() . "Analitics/Analitics/dashboard_monitoring"; ?>" class="card p-3 btn btn-danger btn-card">
+                                                <a href="<?php echo base_url() . "Dashboard/Dashboard"; ?>" class="card p-3 btn btn-danger btn-card">
                                                     <div class="d-flex align-items-center">
                                                         <span class="stamp stamp-md bg-red mr-3">
                                                             <i class="fe fe-bar-chart"></i>
@@ -116,7 +116,7 @@
                                                 </a>
                                             </div>
                                             <div class="col-sm-6">
-                                                <a href="<?php echo base_url() . "Report_helpdesk/Report_helpdesk/"; ?>" class="card p-3 btn btn-success btn-card">
+                                                <a href="<?php echo base_url() . "Report/report_digital_sales"; ?>" class="card p-3 btn btn-success btn-card">
                                                     <div class="d-flex align-items-center">
                                                         <span class="stamp stamp-md bg-green mr-3">
                                                             <i class="fe fe-bar-chart"></i>
@@ -153,7 +153,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12">
+                        <!-- <div class="col-sm-12">
                             <div class="card">
                                 <div class="card-status bg-orange"></div>
                                 <div class="card-header">
@@ -222,7 +222,7 @@
                                 </div>
                             </div>
 
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </td>
