@@ -3,9 +3,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class dashboard extends CI_Controller {
 
-
-
 	public function index()
+
+	{
+		$this->template->load('Dashboard/blast_management');
+	}
+	public function blast_management()
+
+	{
+		$this->load->view('Dashboard/blasting_management');
+	}
+
+	/*public function index()
 	
 	{
 		$data = array();
@@ -109,7 +118,7 @@ class dashboard extends CI_Controller {
 		limit 5")->result();
 		return $tot;
 	}
-	
+	*/
 
 	
 	

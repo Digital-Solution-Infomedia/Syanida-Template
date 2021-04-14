@@ -13,7 +13,7 @@ class Content_Management extends CI_Controller {
 	public function index()
 	{
 		// pake template Syanida nya
-		$this->template->load('Content_Management/index');
+		$this->template->load('Content_management/index');
 	}
 
 	// Save Generator Data
