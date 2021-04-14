@@ -18,6 +18,8 @@ class resources extends CI_Controller
 
 		$data['tampil_regional'] = $this->customer_model->getRegional();
 		$data['tampil_channel'] = $this->customer_model->getChannel();
+		$data['tampil_category'] = $this->customer_model->get_category_produk();
+		$data['tampil_produk'] = $this->customer_model->get_product();
 		$data['tampil_layanan'] = $this->customer_model->getLayanan();
 
 		$this->template->load('Campaign_management/resource_page',$data);
