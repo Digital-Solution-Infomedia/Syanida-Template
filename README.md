@@ -1,6 +1,10 @@
-# Codeigniter CRUD Generator 1.4 by [harviacode.com](http://harviacode.com)#
+# Syanida Template oleh Digital Solution Team + CI CRUD Generator 1.4 oleh [harviacode.com]#
 
-## About : ##
+## Syanida Template oleh DIgital Solution Team
+
+Template ini digunakan untuk aplikasi SmartCollection, Digital Sales dan lainnya.
+
+## Codeigniter CRUD Generator 1.4 by [harviacode.com](http://harviacode.com)##
 
 Codeigniter CRUD Generator is a simple tool to auto generate model, controller and view from your table. This tool will boost your writing code. This CRUD generator will make a complete CRUD operation, pagination, search, form*, form validation, export to excel and export to word. This CRUD Generator using bootstrap 3 style. You still need to modify the result code for more customization.
 

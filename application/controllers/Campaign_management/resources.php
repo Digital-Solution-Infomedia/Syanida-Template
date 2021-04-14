@@ -18,6 +18,7 @@ class resources extends CI_Controller
 
 		$data['tampil_regional'] = $this->customer_model->getRegional();
 		$data['tampil_channel'] = $this->customer_model->getChannel();
+		$data['tampil_produk'] = $this->customer_model->get_product();
 		$data['tampil_layanan'] = $this->customer_model->getLayanan();
 		$data['tampil_category_produk'] = $this->customer_model->getCustCategoryProduk();
 

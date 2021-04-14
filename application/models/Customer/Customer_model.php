@@ -134,12 +134,14 @@ class Customer_model extends CI_Model {
     public function getChannel(){
         return $this->db->get('dim_produk')->result();
     }
+    public function getCustCategoryProduk(){
+        return $this->db->get('dim_category_produk')->result();
+    }
 
     public function getLayanan(){
         return $this->db->get('dim_layanan')->result();
     }
-
-    public function getCustCategoryProduk(){
-        return $this->db->get('dim_category_produk')->result();
+    public function get_product(){
+        return $this->db->get('dim_produk')->result();
     }
 }
