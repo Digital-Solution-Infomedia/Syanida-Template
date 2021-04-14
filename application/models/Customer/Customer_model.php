@@ -12,7 +12,7 @@ class Customer_model extends CI_Model {
     public function getAllCustomer()
     {
         $this->db->join('dim_regional', 'trx_customer_kriteria.regional_key = dim_regional.regional_key');
-        $this->db->join('dim_channel', 'trx_customer_kriteria.channel_key = dim_channel.channel_key');
+        $this->db->join('dim_produk', 'trx_customer_kriteria.channel_key = dim_produk.produk_key');
         $this->db->join('dim_layanan', 'trx_customer_kriteria.layanan_key = dim_layanan.layanan_key');
         $customer_paket = $this->db->get($this->_table)->result();
         for($i = 0; $i<count($customer_paket); $i++) {
@@ -132,7 +132,7 @@ class Customer_model extends CI_Model {
     }
 
     public function getChannel(){
-        return $this->db->get('dim_channel')->result();
+        return $this->db->get('dim_produk')->result();
     }
     public function get_category_produk(){
         return $this->db->get('dim_category_produk')->result();
