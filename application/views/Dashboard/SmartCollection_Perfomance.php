@@ -322,13 +322,13 @@
                                                                 <td>
                                                                     Total Order : <?php echo $percentage_order; ?>%
                                                                     <div class="progress">
-                                                                        <div class="progress-bar progress-bar-striped progress-bar-animated w-<?php echo $percentage_order; ?>"
+                                                                        <div class="progress-bar progress-bar-striped progress-bar-animated "
                                                                         role="progressbar" aria-valuenow="<?php echo $percentage_order; ?>"
                                                                         aria-valuemin="0" aria-valuemax="100"><?php echo $summary_payment_by_regional[$i]['count_order']; ?></div>
                                                                     </div>
                                                                     Total Success : <?php echo $percentage_success; ?>%
                                                                     <div class="progress">
-                                                                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated w-<?php echo $percentage_success; ?>"
+                                                                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated "
                                                                         role="progressbar" aria-valuenow="<?php echo $percentage_success; ?>"
                                                                         aria-valuemin="0" aria-valuemax="100"><?php echo $summary_payment_by_regional[$i]['count_success']; ?></div>
                                                                     </div>

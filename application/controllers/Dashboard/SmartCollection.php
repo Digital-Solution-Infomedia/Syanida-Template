@@ -14,7 +14,7 @@ class SmartCollection extends CI_Controller {
 
 	public function index()
 	{
-		$curdate = date('Y-m-d', strtotime("2021-03-01"));
+		$curdate = date('Y-m-d', strtotime("2021-03-07"));
 		$getDateData = $this->SmartCollectionModel->get_date_data($curdate);
 		$data = array(
 			'title_page_big'		=> 'Dashboard Monitoring Smart Collection',
@@ -27,7 +27,7 @@ class SmartCollection extends CI_Controller {
 			'summary_order_by_unique_customer' => $this->SmartCollectionModel->get_summary_order_by_unique_customer_today($getDateData[0]['date_value']),
 		);
 		$data['controller'] = $this;
-		$data['pencairan_h1'] = $this->SmartCollectionModel->get_total_pencairan_filter_by_date( date_format(date_sub(date_create( $getDateData[0]['date_value'] ), date_interval_create_from_date_string('1 days')),"Y-m-d") , $getDateData[0]['date_value']);
+		$data['pencairan_h1'] = $this->SmartCollectionModel->get_total_pencairan_filter_by_date( date_format(date_sub(date_create( $getDateData[0]['date_value'] ), date_interval_create_from_date_string('1 days')),"Y-m-d") , date_format(date_sub(date_create( $getDateData[0]['date_value'] ), date_interval_create_from_date_string('1 days')),"Y-m-d"));
 		$data['pencairan_seminggu'] = $this->SmartCollectionModel->get_total_pencairan_filter_by_date( date_format(date_sub(date_create( $getDateData[0]['date_value'] ), date_interval_create_from_date_string('7 days')),"Y-m-d") , $getDateData[0]['date_value'] );
 		$data['pencairan_sebulan'] = $this->SmartCollectionModel->get_total_pencairan_filter_by_date( date('Y-m-01', strtotime($getDateData[0]['date_value'])), date('Y-m-t', strtotime($getDateData[0]['date_value'])) );
 

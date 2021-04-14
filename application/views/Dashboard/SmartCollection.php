@@ -258,7 +258,7 @@
                 <div class="col-12 col-md-12 col-lg-5 mt-3">
                     <div class="card">
                         <div class="card-header  justify-content-between align-items-center">
-                            <h6 class="card-title">Summary Order by Regionial (Today)</h6>
+                            <h6 class="card-title">Summary Order by Regional (Today)</h6>
                         </div>
                         <div class="card-body table-responsive p-0">
 
@@ -385,7 +385,7 @@
                                 	}, $summary_order_by_unique_customer));
                                 	$color_class = ['#1ee0ac', '#ffc107', '#17a2b8'];
                                 	$color_class1 = ['success', 'warning', 'info'];
-                                	if (count($summary_order_by_unique_customer) > 1) {
+                                	if (count($summary_order_by_unique_customer) > 0) {
 	                                	for ($i=0; $i < count($summary_order_by_unique_customer); $i++) { 
 	                                		echo '<li class="p-4 border-bottom">
 	                                		<div class="w-100">
@@ -396,7 +396,7 @@
 	                                		<span class="tip-arrow"></span>
 	                                		</span>
 	                                		</div>
-	                                		<span class="fill" data-percentage="'.((int) ($summary_order_by_unique_customer[$i]['count_order']/$total_success)*100).'"></span>
+	                                		<span class="fill" data-percentage="'.round(($summary_order_by_unique_customer[$i]['count_order']/$total_success)*100).'"></span>
 	                                		</div>
 	                                		</div>
 	                                		</li>';
