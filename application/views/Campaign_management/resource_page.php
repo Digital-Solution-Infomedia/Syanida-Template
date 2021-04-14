@@ -172,9 +172,10 @@
                                       <div class="col-md-6 mb-3">
                                         <label for="paket">Paket</label>
                                         <select multiple data-allow-clear="1" class="form-control multiple-paket" name="paket[]" id="paket" required>
-                                          <option value="Pkg 1">Pkg 1</option>
-                                          <option value="Pkg 2">Pkg 2</option>
-                                          <option value="Pkg 3">Pkg 3</option>
+                                        <option value="">-- Pilih Paket --</option>
+                                          <?php foreach($tampil_category_produk as $tcp): ?>
+                                          <option><?=$tcp->category_produk_value?></option>
+                                        <?php endforeach; ?>
                                         </select>
                                       </div>
                                       <div class="col-md-6 mb-6">
