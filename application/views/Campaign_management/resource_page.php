@@ -182,7 +182,7 @@
                                       <select name="channel" id="channel" required>
                                       <option value="">-- Pilih Channel --</option>
                                         <?php foreach($tampil_channel as $tc): ?>
-                                        <option value="<?=$tc->channel_key?>"><?=$tc->channel_value?></option>
+                                        <option value="<?=$tc->produk_key?>"><?=$tc->produk_value?></option>
                                       <?php endforeach; ?>
                                       </select>
                                         <div class="valid-feedback">Looks good!</div>
@@ -263,7 +263,7 @@
                                     <select name="channel" id="channel" required>
                                     <option value="">-- Pilih Channel --</option>
                                       <?php foreach($tampil_channel as $tc): ?>
-                                      <option value="<?=$tc->channel_key?>"><?=$tc->channel_value?></option>
+                                      <option value="<?=$tc->produk_key?>"><?=$tc->produk_value?></option>
                                      <?php endforeach; ?>
                                     </select>
                                     <div class="valid-feedback">Looks good!</div>
@@ -657,13 +657,13 @@
 
 
       //Customer
-      function mutateFormCustomer(id, nama_kriteria, regional_key, paket_key, channel_key, moss_subs_notps, last_campaign_time, history_campaign_topic, layanan_key, type_interaction,tag_interaction, nama_paket) {
+      function mutateFormCustomer(id, nama_kriteria, regional_key, paket_key, produk_key, moss_subs_notps, last_campaign_time, history_campaign_topic, layanan_key, type_interaction,tag_interaction, nama_paket) {
         document.getElementById('id_customer').value = id;
         document.getElementById("nama_kriteria").value = nama_kriteria;
         $("#regional").val(regional_key).trigger('change');
         var nama_paket_select = nama_paket.split(',');
         $("#paket").val(nama_paket_select).trigger('change');
-        $("#channel").val(channel_key).trigger('change');
+        $("#channel").val(produk_key).trigger('change');
 
         var format_date = new Date(last_campaign_time).toISOString().slice(0, 16);
         document.getElementById("last_campaign_time").value = format_date;
@@ -708,7 +708,7 @@
                 }
                 ,
                 {
-                  "data": "channel_value"
+                  "data": "produk_value"
                 }
                 ,
                 {
@@ -729,7 +729,7 @@
                 ,
                 {
                   "render": function(data, type, row, meta) {
-                    html = `<a href="javascript:void(0)" onclick="mutateFormCustomer('${row.id}','${row.nama_kriteria}','${row.regional_key}','${row.paket_key}','${row.channel_key}','${row.moss_subs_notps}','${row.last_campaign_time}','${row.history_campaign_topic}','${row.layanan_key}','${row.type_interaction}','${row.tag_interaction}', '${row.nama_paket}');" 
+                    html = `<a href="javascript:void(0)" onclick="mutateFormCustomer('${row.id}','${row.nama_kriteria}','${row.regional_key}','${row.paket_key}','${row.produk_key}','${row.moss_subs_notps}','${row.last_campaign_time}','${row.history_campaign_topic}','${row.layanan_key}','${row.type_interaction}','${row.tag_interaction}', '${row.nama_paket}');" 
                     class = "ml-2"><i class = "icon-pencil"></i></a >`;
                     return html;
                   }
