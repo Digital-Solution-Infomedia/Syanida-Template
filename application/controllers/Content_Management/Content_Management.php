@@ -13,7 +13,7 @@ class Content_Management extends CI_Controller {
 	public function index()
 	{
 		// pake template Syanida nya
-		$this->template->load('Content_management/index');
+		$this->template->load('Content_management/index2');
 	}
 
 	// Save Generator Data
@@ -161,6 +161,41 @@ class Content_Management extends CI_Controller {
 			$this->ContentManagementModel->save_template('sms', $this->input->post('nama_campaign'), json_encode($template_content));
 			redirect('/Content_Management/Content_Management/index#success', 'refresh');
 		}
+	}
+
+	public function blast_off() //**** UNTUK DI CRONJOB ****/
+	{
+		$data = $this->ContentManagementModel->get_blast_data();
+		foreach ($data as $row)
+		{
+			$success = false;
+			// echo $row->cust_id;
+			// echo $row->media;
+			// echo $row->content_id;
+			// echo $row->unique_link;
+			// echo $row->target;
+			switch ($row->media) {
+				case 'whatsapp':
+					# Blast WA
+					$success = true;
+					break;
+				case 'sms':
+					# Blast sms
+					$success = true;
+					break;
+				case 'email':
+					# Blast email
+					$success = true;
+					break;
+			}
+			if ($success) {
+				$this->ContentManagementModel->update_blast_result($row->unique_link);
+			}
+		}
+	}
+	public function generate_blast_data()
+	{
+		$this->ContentManagementModel->insert_cust_blast();
 	}
 
 }
