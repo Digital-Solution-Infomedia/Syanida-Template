@@ -193,9 +193,45 @@ class Content_Management extends CI_Controller {
 			}
 		}
 	}
+
+	public function customer_responded()
+	{
+		$this->ContentManagementModel->clear_blast_link($unique_link);
+	}
+
+	public function generate_landingpage()
+	{
+		$this->ContentManagementModel->unique_link_access($unique_link);
+	}
+
 	public function generate_blast_data()
 	{
 		$this->ContentManagementModel->insert_cust_blast();
+	}
+
+	public function getTypeTemplate() {
+		if ($this->input->is_ajax_request()) {
+			$hasil = array('response' => 'success', 'results' => $this->ContentManagementModel->getTypeTemplate());
+			echo json_encode($hasil);
+		} else {
+			echo "No direct script access allowed";
+		}
+	}
+
+	public function getTemplateData() {
+		if ($this->input->is_ajax_request()) {
+			$template_id = $this->input->post('template_id');
+			$hasil = array('response' => 'success', 'results' => $this->ContentManagementModel->getTemplateData($template_id));
+			echo json_encode($hasil);
+		} else {
+			echo "No direct script access allowed";
+		}
+	}
+
+	public function LandingPage() {
+		$unique_link = $this->input->get('unique_link', TRUE);
+		$data['customized_view'] = $this->ContentManagementModel->unique_link_access($unique_link);
+		$this->template->load('Content_management/LandingPage',$data);
 	}
 
 }

@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') || exit('No direct script access allowed');
 
 class ContentManagementModel extends CI_Model {
 
@@ -24,13 +24,13 @@ class ContentManagementModel extends CI_Model {
 	{
 		return $this->db->query("UPDATE content_customer_blast SET stage_flag = stage_flag + 1 WHERE unique_link = ".$unique_link.";");
 	}
-	public function clear_blast_link(string $unique_link) //Final Function, kalau pelanggan agree, disagree, tidak ada respon sama sekali
+	public function clear_blast_link(string $unique_link) //Final Function, kalau pelanggan agree, disagree, tidak ada respon sama sekali, hentikan blast
 	{
 		return $this->db->query("UPDATE content_customer_blast SET unique_link = NULL WHERE unique_link = ".$unique_link.";");
 	}
 	public function unique_link_access(string $unique_link) //Ambil data saat customer click unique link
 	{
-		return $this->db->query("SELECT cust_id,content_id FROM content_customer_blast WHERE unique_link = ".$unique_link.";")->result();
+		return $this->db->query('SELECT JSON_UNQUOTE(JSON_EXTRACT(design_data, "$.landingpage")) AS landingpage FROM content_campaign WHERE id=(SELECT content_id FROM content_customer_blast WHERE unique_link = "'.$unique_link.'")')->result()[0]->landingpage;
 	}
 	public function insert_cust_blast(integer $content_id, array $parameter)
 	{
@@ -43,6 +43,18 @@ class ContentManagementModel extends CI_Model {
 		$this->db->query($sql);
 		// JSON_ARRAY_INSERT('[]', '$[0]', 'x')
 		// [{"media":"whatsapp","target":"09212345678","schedule":1618652735},{"media":"sms","target":"08212345678","schedule":1618652735},{"media":"email","target":"customer@email.com","schedule":1618652735}]
+	}
+	public function getTypeTemplate()
+	{
+		return $this->db->query("SELECT id,nama AS text FROM content_type_template")->result();
+	}
+	public function getTemplateData($id,string $target=null)
+	{
+		if($target===null) {
+			return $this->db->query('SELECT JSON_UNQUOTE(JSON_EXTRACT(template, "$.sms")) AS sms,JSON_UNQUOTE(JSON_EXTRACT(template, "$.whatsapp")) AS whatsapp,JSON_UNQUOTE(JSON_EXTRACT(template, "$.email")) AS email,JSON_UNQUOTE(JSON_EXTRACT(template, "$.landingpage")) AS landingpage FROM content_type_template WHERE id = '.$id.';')->result()[0];
+		} else {
+			return $this->db->query('SELECT JSON_UNQUOTE(JSON_EXTRACT(template, "$.'.$target.'")) AS '.$target.' FROM content_type_template WHERE id = '.$id.';')->result()[0];
+		}
 	}
 
 }
