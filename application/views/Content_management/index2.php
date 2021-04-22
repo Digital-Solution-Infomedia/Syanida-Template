@@ -111,6 +111,48 @@
                             <h5 class="card-title">Parameter</h5>
                         </div>
                         <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="card mb-2 mx-0">
+                                        <div class="card-header">
+                                            <h5 class="card-title">Total</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <h3 id="targetTotal" class="card-title">0</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card mb-2 mx-0">
+                                        <div class="card-header">
+                                            <h5 class="card-title">SMS</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <h3 id="targetSms" class="card-title">0</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card mb-2 mx-0">
+                                        <div class="card-header">
+                                            <h5 class="card-title">Whatsapp</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <h3 id="targetWhatsapp" class="card-title">0</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card mb-2 mx-0">
+                                        <div class="card-header">
+                                            <h5 class="card-title">Email</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <h3 id="targetEmail" class="card-title">0</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div id="previewTarget">
                             </div>
                         </div>
@@ -166,6 +208,7 @@
 </div>
 <script>
     var filterCount = 0;
+    var timerCounter = 1000;
     var filterField = [{
         "id": "kec_speedy",
         "text": "Kecepatan Internet"
@@ -293,6 +336,19 @@
         filterCount = 0;
     });
 
+    function animate_counter(DivIdtoAnimate, targetVal) {
+        var divId = $(DivIdtoAnimate).text();
+        $(DivIdtoAnimate).prop('Counter', parseInt(divId)).animate({
+            Counter: parseInt(targetVal)
+        }, {
+            duration: timerCounter,
+            easing: 'swing',
+            step: function(now) {
+                $(DivIdtoAnimate).text(Math.ceil(now));
+            }
+        });
+    }
+
     function updateSmsArea(text_input = null) {
         let tempText = '';
         if (text_input === null) {
@@ -362,7 +418,10 @@
             data: formData,
             dataType: 'json',
             success: function(data) {
-                console.log(data);
+                animate_counter('#targetTotal', data.results.total);
+                animate_counter('#targetSms', data.results.handphone);
+                animate_counter('#targetWhatsapp', data.results.handphone);
+                animate_counter('#targetEmail', data.results.email);
             },
             error: function(data) {
                 console.log(data);
