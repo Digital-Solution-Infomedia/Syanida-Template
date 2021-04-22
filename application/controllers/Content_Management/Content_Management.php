@@ -124,7 +124,7 @@ class Content_Management extends CI_Controller
 	{
 		$unique_link = $this->input->get('unique_link', TRUE);
 		$data['customized_view'] = $this->ContentManagementModel->unique_link_access('landingpage', $unique_link);
-		// $this->ContentManagementModel->clear_blast_link($unique_link); //Clear unique link 
+		$this->ContentManagementModel->clear_blast_link($unique_link); //Clear unique link 
 		$this->template->load('Content_management/LandingPage', $data);
 	}
 	public function getFieldData()

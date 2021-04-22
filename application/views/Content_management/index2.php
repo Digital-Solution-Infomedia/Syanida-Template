@@ -34,6 +34,7 @@
                         </div>
                         <div class="col-sm-3">
                             <button id="saveButton" class="btn btn-info" type="submit">Save</button>
+                            <button id="Blast" class="btn btn-info" type="submit">Blast</button>
                         </div>
                     </div>
                 </div>
@@ -164,6 +165,21 @@
     </div>
 </div>
 <script>
+    var filterCount = 0;
+    var filterField = [{
+        "id": "kec_speedy",
+        "text": "Kecepatan Internet"
+    }, {
+        "id": "payment",
+        "text": "Metode Pembayaran"
+    }];
+    $(document).ready(function() {
+        $('.summernote').summernote();
+        $('.datepicker').datepicker({
+            format: "yyyy-mm-dd"
+        });
+        $('#typeTemplate').trigger('change.select2');
+    });
     $("#typeTemplate").select2({
         placeholder: "Pick a Template",
         ajax: {
@@ -192,13 +208,6 @@
             }
         });
     });
-    $(document).ready(function() {
-        $('.summernote').summernote();
-        $('.datepicker').datepicker({
-            format: "yyyy-mm-dd"
-        });
-        $('#typeTemplate').trigger('change.select2');
-    });
     $('.summernote').each(function(i, obj) {
         $(obj).summernote({
             callbacks: {
@@ -216,25 +225,6 @@
     $('#smsTextArea').bind('input propertychange', function() {
         updateSmsArea();
     });
-
-    function updateSmsArea(text_input = null) {
-        let tempText = '';
-        if (text_input === null) {
-            tempText = document.getElementById("smsTextArea").value;
-        } else {
-            tempText = text_input;
-            document.getElementById("smsTextArea").value = text_input;
-        }
-        let page = Math.floor(tempText.length / 160) + 1;
-        let remaining = tempText.length % 160;
-        document.getElementById('labelSmsTextArea').innerHTML = 'Char Count ' + remaining + '/160 (' + page + ')';
-        document.getElementById('previewSms').innerHTML = "";
-        for (let index = 0; index < page; index++) {
-            let newParagraph = document.createElement('p');
-            newParagraph.innerHTML = tempText.substring((160 * index), (160 * index) + 160);
-            document.getElementById('previewSms').appendChild(newParagraph);
-        }
-    }
     $('#saveButton').click(function() {
         var formData = {
             nama: document.getElementById("nama_campaign").value,
@@ -259,14 +249,19 @@
             }
         });
     });
-    var filterCount = 0;
-    var filterField = [{
-        "id": "kec_speedy",
-        "text": "Kecepatan Internet"
-    }, {
-        "id": "payment",
-        "text": "Metode Pembayaran"
-    }];
+    $('#Blast').click(function() {
+        $.ajax({
+            type: 'POST',
+            url: "<?= base_url() ?>Content_Management/Content_Management/blast_off",
+            dataType: 'json',
+            success: function(data) {
+                console.log(data)
+            },
+            error: function(data) {
+                console.log(data);
+            }
+        });
+    });
     $('#addFilter').click(function() {
         filterCount++;
         let newDivRow = document.createElement('div');
@@ -297,6 +292,25 @@
         document.getElementById('filterContainer').innerHTML = "";
         filterCount = 0;
     });
+
+    function updateSmsArea(text_input = null) {
+        let tempText = '';
+        if (text_input === null) {
+            tempText = document.getElementById("smsTextArea").value;
+        } else {
+            tempText = text_input;
+            document.getElementById("smsTextArea").value = text_input;
+        }
+        let page = Math.floor(tempText.length / 160) + 1;
+        let remaining = tempText.length % 160;
+        document.getElementById('labelSmsTextArea').innerHTML = 'Char Count ' + remaining + '/160 (' + page + ')';
+        document.getElementById('previewSms').innerHTML = "";
+        for (let index = 0; index < page; index++) {
+            let newParagraph = document.createElement('p');
+            newParagraph.innerHTML = tempText.substring((160 * index), (160 * index) + 160);
+            document.getElementById('previewSms').appendChild(newParagraph);
+        }
+    }
 
     function getFieldData(id) {
         let selectedField = document.getElementById("field" + id).value

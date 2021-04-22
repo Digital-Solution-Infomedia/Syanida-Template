@@ -34,11 +34,11 @@ class ContentManagementModel extends CI_Model
 	}
 	public function update_blast_result(string $unique_link) //Bilamana blast sukses dieksekusi (bukan blast agree)
 	{
-		return $this->db->query("UPDATE content_customer_blast SET stage_flag = stage_flag + 1 WHERE unique_link = " . $unique_link . ";");
+		return $this->db->query("UPDATE content_customer_blast SET stage_flag = stage_flag + 1 WHERE unique_link = '" . $unique_link . "';");
 	}
 	public function clear_blast_link(string $unique_link) //Final Function, kalau pelanggan agree, disagree, tidak ada respon sama sekali, hentikan blast
 	{
-		return $this->db->query("UPDATE content_customer_blast SET unique_link = NULL WHERE unique_link = " . $unique_link . ";");
+		return $this->db->query("UPDATE content_customer_blast SET unique_link = NULL WHERE unique_link = '" . $unique_link . "';");
 	}
 	public function unique_link_access(string $media, string $unique_link) //Ambil data berdasarkan unique link
 	{
@@ -89,7 +89,6 @@ class ContentManagementModel extends CI_Model
 		}
 		$sql = substr($sql, 0, -4);
 		return $this->db->query($sql)->result()[0];
-		// return $sql;
 	}
 }
 
