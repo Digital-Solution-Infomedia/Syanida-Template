@@ -194,7 +194,9 @@
     });
     $(document).ready(function() {
         $('.summernote').summernote();
-        $('.datepicker').datepicker();
+        $('.datepicker').datepicker({
+            format: "yyyy-mm-dd"
+        });
         $('#typeTemplate').trigger('change.select2');
     });
     $('.summernote').each(function(i, obj) {
@@ -244,19 +246,18 @@
             starttime: document.getElementById("startTime").value,
             endtime: document.getElementById("endTime").value,
         };
-        // $.ajax({
-        //     type: 'POST',
-        //     url: "<?= base_url() ?>Content_Management/Content_Management/saveContent",
-        //     data: formData,
-        //     dataType: 'json',
-        //     success: function(data) {
-        //         console.log(data)
-        //     },
-        //     error: function(data) {
-        //         console.log(data);
-        //     }
-        // });
-        console.log(formData);
+        $.ajax({
+            type: 'POST',
+            url: "<?= base_url() ?>Content_Management/Content_Management/saveContent",
+            data: formData,
+            dataType: 'json',
+            success: function(data) {
+                // console.log(data)
+            },
+            error: function(data) {
+                console.log(data);
+            }
+        });
     });
     var filterCount = 0;
     var filterField = [{
@@ -308,10 +309,19 @@
             data: formData,
             dataType: 'json',
             success: function(result) {
+                let tempData = [],
+                    resultContainer = result.results;
+                for (let index = 0; index < resultContainer.length; index++) {
+                    let newData = [];
+                    newData['id'] = resultContainer[index].result;
+                    newData['text'] = resultContainer[index].result;
+                    tempData[index] = newData;
+                }
+                // console.log(tempData);
                 document.getElementById("filter" + id).setAttribute('multiple', 'multiple');
                 document.getElementById("filter" + id).setAttribute('onchange', 'calculatePotentialTarget()');
                 $('#filter' + id).select2({
-                    data: JSON.parse(result.results)
+                    data: tempData
                 });
             },
             error: function(data) {
@@ -330,7 +340,7 @@
 
     function calculatePotentialTarget() {
         let formData = {
-            filter_parameter: aggregateFilter(),
+            filter_parameter: JSON.stringify(aggregateFilter()),
         };
         $.ajax({
             type: 'POST',

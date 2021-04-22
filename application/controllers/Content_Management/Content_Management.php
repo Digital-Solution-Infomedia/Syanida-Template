@@ -17,7 +17,6 @@ class Content_Management extends CI_Controller
 		// pake template Syanida nya
 		$this->template->load('Content_management/index2');
 	}
-
 	public function blast_off() //**** UNTUK DI CRONJOB ****/
 	{
 		$data = $this->ContentManagementModel->get_blast_data();
@@ -41,8 +40,35 @@ class Content_Management extends CI_Controller
 					break;
 				case 'email':
 					# Blast email
-					$content = $this->ContentManagementModel->unique_link_access('email', $row->unique_link);
-					$success = true;
+					$curl = curl_init();
+					$url = "http://10.194.194.251/digital_media_profiling/index.php/api/send/email";
+					$arr = [
+						// "email" => $row->target,
+						"email" => 'aryoff@gmail.com',
+						"subject" => "billco",
+						"message" => $this->ContentManagementModel->unique_link_access('email', $row->unique_link)
+					];
+					$data = http_build_query($arr);
+
+					curl_setopt_array($curl, array(
+						CURLOPT_URL => $url,
+						CURLOPT_RETURNTRANSFER => true,
+						CURLOPT_ENCODING => "",
+						CURLOPT_MAXREDIRS => 10,
+						CURLOPT_TIMEOUT => 0,
+						CURLOPT_FOLLOWLOCATION => true,
+						CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+						CURLOPT_CUSTOMREQUEST => "POST",
+						CURLOPT_POSTFIELDS => $data,
+						CURLOPT_HTTPHEADER => array(
+							"Content-Type: application/x-www-form-urlencoded"
+						),
+					));
+					$response = curl_exec($curl);
+					$response = json_decode($response);
+					if ($response->sts == 1) {
+						$success = true;
+					}
 					break;
 				default:
 					break;
@@ -52,7 +78,6 @@ class Content_Management extends CI_Controller
 			}
 		}
 	}
-
 	public function saveContent()
 	{
 		if ($this->input->is_ajax_request()) {
@@ -64,16 +89,18 @@ class Content_Management extends CI_Controller
 			$tipe_content = $this->input->post('tipe_content');
 			$starttime = $this->input->post('starttime');
 			$endtime = $this->input->post('endtime');
+			if ($endtime == '') {
+				$endtime = null;
+			}
 			$content_id = $this->ContentManagementModel->saveContent($nama, $sms_template, $email_template, $landingpage_template, $tipe_content, $starttime, $endtime);
 			$this->ContentManagementModel->insert_cust_blast($content_id, $filter_parameter); //generate blast data
 
-			// $hasil = array('response' => 'success', 'results' => $this->ContentManagementModel->getTemplateData($template_id));
-			// echo json_encode($hasil);
+			$hasil = array('response' => 'success', 'results' => $content_id);
+			echo json_encode($hasil);
 		} else {
 			echo NOACCESS;
 		}
 	}
-
 	public function getTypeTemplate()
 	{
 		if ($this->input->is_ajax_request()) {
@@ -83,7 +110,6 @@ class Content_Management extends CI_Controller
 			echo NOACCESS;
 		}
 	}
-
 	public function getTemplateData()
 	{
 		if ($this->input->is_ajax_request()) {
@@ -94,7 +120,6 @@ class Content_Management extends CI_Controller
 			echo NOACCESS;
 		}
 	}
-
 	public function LandingPage()
 	{
 		$unique_link = $this->input->get('unique_link', TRUE);
@@ -102,23 +127,21 @@ class Content_Management extends CI_Controller
 		// $this->ContentManagementModel->clear_blast_link($unique_link); //Clear unique link 
 		$this->template->load('Content_management/LandingPage', $data);
 	}
-
 	public function getFieldData()
 	{
 		if ($this->input->is_ajax_request()) {
 			$selected_field = $this->input->post('selectedField');
-			$hasil = array('response' => 'success', 'results' => '[{"id":"1","text":"Parameter 1"},{"id":"2","text":"Parameter 2"},{"id":"3","text":"Parameter 3"}]');
+			$hasil = array('response' => 'success', 'results' => $this->ContentManagementModel->getFieldData($selected_field));
 			echo json_encode($hasil);
 		} else {
 			echo NOACCESS;
 		}
 	}
-
 	public function calculatePotentialTarget()
 	{
 		if ($this->input->is_ajax_request()) {
-			$filter_parameter = $this->input->post('filter_parameter');
-			$hasil = array('response' => 'success', 'results' => '');
+			$filter_parameter = json_decode($this->input->post('filter_parameter'));
+			$hasil = array('response' => 'success', 'results' => $this->ContentManagementModel->calculatePotentialTarget($filter_parameter));
 			echo json_encode($hasil);
 		} else {
 			echo NOACCESS;

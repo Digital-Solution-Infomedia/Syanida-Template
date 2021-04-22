@@ -26,7 +26,7 @@ class ContentManagementModel extends CI_Model
 	}
 	public function get_blast_data() // get data yg mau di blast dari DB
 	{
-		return $this->db->query("SELECT JSON_UNQUOTE(JSON_EXTRACT(JSON_EXTRACT(stage_data, CONCAT('$[',stage_flag+1,']')),'$.media')) AS media,cust_id,content_id,unique_link,target FROM content_customer_blast WHERE unique_link IS NOT NULL AND FROM_UNIXTIME(JSON_EXTRACT(JSON_EXTRACT(stage_data, CONCAT('$[',stage_flag+1,']')),'$.schedule')) <= NOW();")->result();
+		return $this->db->query("SELECT JSON_UNQUOTE(JSON_EXTRACT(JSON_EXTRACT(stage_data, CONCAT('$[',stage_flag+1,']')),'$.media')) AS media,cust_id,content_id,unique_link,JSON_UNQUOTE(JSON_EXTRACT(JSON_EXTRACT(stage_data, CONCAT('$[',stage_flag+1,']')),'$.target')) AS target FROM content_customer_blast WHERE unique_link IS NOT NULL AND FROM_UNIXTIME(JSON_EXTRACT(JSON_EXTRACT(stage_data, CONCAT('$[',stage_flag+1,']')),'$.schedule')) <= NOW() LIMIT 1;")->result();
 	}
 	public function get_not_responding_data() //Ambil data blast yg sudah selesai di blast, tapi tanpa respon, untuk di konsumsi TAM
 	{
@@ -44,17 +44,21 @@ class ContentManagementModel extends CI_Model
 	{
 		return $this->db->query('SELECT JSON_UNQUOTE(JSON_EXTRACT(design_data, "$.' . $media . '")) AS ' . $media . ' FROM content_campaign WHERE id=(SELECT content_id FROM content_customer_blast WHERE unique_link = "' . $unique_link . '")')->result()[0]->$media;
 	}
-	public function insert_cust_blast(integer $content_id, array $parameter)
+	public function insert_cust_blast($content_id, $parameter)
 	{
-		$sql = 'INSERT INTO content_customer_blast (stage_data,unique_link,content_id) SELECT CONCAT("[",IF(email IS NOT NULL,CONCAT(\'{"media":"email","target":"\',email,\'","schedule":\',UNIX_TIMESTAMP(DATE_ADD(NOW(), INTERVAL 0 DAY)),\'}\'),""),IF(LENGTH(SUBSTRING(ani,LOCATE("8",ani),LENGTH(ani)-LOCATE("8",ani)+1))>10 , CONCAT(IF(email IS NOT NULL,",",""),\'{"media":"sms","target":"\',ani,\'","schedule":\',UNIX_TIMESTAMP(DATE_ADD(NOW(), INTERVAL 3 DAY)),\'},{"media":"whatsapp","target":"\',ani,\'","schedule":\',UNIX_TIMESTAMP(DATE_ADD(NOW(), INTERVAL 6 DAY)),\'}\'), ""),"]") AS stage_data, SHA2(CONCAT(cust_id,' . $content_id . '), 512) AS unique_link,' . $content_id . ' AS content_id FROM (;';
-		$sql .= 'SELECT cust_id,ani_number,email FROM db_profiling WHERE true';
-		foreach ($parameter as $param) {
-			$sql .= " AND cust_id IN (SELECT cust_id FROM " . $param->database_name . " WHERE " . $param->filter . ")";
+		$sql = 'INSERT INTO content_customer_blast (cust_id,stage_data,unique_link,content_id) SELECT cust_id,CONCAT("[",IF(email IS NOT NULL,CONCAT(\'{"media":"email","target":"\',email,\'","schedule":\',UNIX_TIMESTAMP(DATE_ADD(NOW(), INTERVAL 0 DAY)),\'}\'),""),IF(LENGTH(SUBSTRING(ani,LOCATE("8",ani),LENGTH(ani)-LOCATE("8",ani)+1))>10 , CONCAT(IF(email IS NOT NULL,",",""),\'{"media":"sms","target":"\',ani,\'","schedule":\',UNIX_TIMESTAMP(DATE_ADD(NOW(), INTERVAL 3 DAY)),\'},{"media":"whatsapp","target":"\',ani,\'","schedule":\',UNIX_TIMESTAMP(DATE_ADD(NOW(), INTERVAL 6 DAY)),\'}\'), ""),"]") AS stage_data, SHA2(CONCAT(cust_id,' . $content_id . '), 512) AS unique_link,' . $content_id . ' AS content_id FROM (';
+		$sql .= 'SELECT no_speedy AS cust_id,handphone AS ani,email FROM trans_profiling WHERE true AND';
+		foreach ($parameter as $key => $value) {
+			$sql .= ' ' . $key . ' IN (';
+			foreach ($value as $val) {
+				$sql .= '"' . $val . '",';
+			}
+			$sql = substr($sql, 0, -1);
+			$sql .= ') AND';
 		}
+		$sql = substr($sql, 0, -4);
 		$sql .= ') temp';
-		$this->db->query($sql);
-		// JSON_ARRAY_INSERT('[]', '$[0]', 'x')
-		// [{"media":"whatsapp","target":"09212345678","schedule":1618652735},{"media":"sms","target":"08212345678","schedule":1618652735},{"media":"email","target":"customer@email.com","schedule":1618652735}]
+		return $this->db->query($sql);
 	}
 	public function getTypeTemplate()
 	{
@@ -67,6 +71,25 @@ class ContentManagementModel extends CI_Model
 		} else {
 			return $this->db->query('SELECT JSON_UNQUOTE(JSON_EXTRACT(template, "$.' . $target . '")) AS ' . $target . ' FROM content_type_template WHERE id = ' . $id . ';')->result()[0];
 		}
+	}
+	public function getFieldData($selected_field)
+	{
+		return $this->db->query('SELECT DISTINCT ' . $selected_field . ' AS result FROM trans_profiling;')->result();
+	}
+	public function calculatePotentialTarget($parameter)
+	{
+		$sql = "SELECT COUNT(*) AS total,SUM(CASE WHEN email!='' THEN 1 ELSE 0 END) AS email,SUM(CASE WHEN handphone!='' THEN 1 ELSE 0 END) AS handphone FROM trans_profiling WHERE true AND";
+		foreach ($parameter as $key => $value) {
+			$sql .= ' ' . $key . ' IN (';
+			foreach ($value as $val) {
+				$sql .= '"' . $val . '",';
+			}
+			$sql = substr($sql, 0, -1);
+			$sql .= ') AND';
+		}
+		$sql = substr($sql, 0, -4);
+		return $this->db->query($sql)->result()[0];
+		// return $sql;
 	}
 }
 
